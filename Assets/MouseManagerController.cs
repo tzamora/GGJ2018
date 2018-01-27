@@ -63,7 +63,7 @@ public class MouseManagerController : MonoBehaviour {
         };
     }
 
-    void MouseDragHandlerRoutine()
+    void MouseClickHandlerRoutine()
     {
         this.tt().Loop((handler) =>{
 
@@ -85,7 +85,7 @@ public class MouseManagerController : MonoBehaviour {
 
                 foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
 
-                 unit.action(Input.mousePosition, hitGameObject);
+                 unit.action(mousePos, hitGameObject);
 
                 }
 
@@ -94,7 +94,7 @@ public class MouseManagerController : MonoBehaviour {
         });
     }
 
-    void MouseClickHandlerRoutine() {
+    void MouseDragHandlerRoutine() {
 
         this.tt().Loop((handler) => {
 

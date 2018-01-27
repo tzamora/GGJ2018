@@ -21,16 +21,24 @@ public class UnitController : MonoBehaviour {
 
     Animator setAnimation;
 
+    GameObject debugCircle;
+
     // Use this for initialization
     void Start () {
 
         setAnimation = GetComponent<Animator>();
 
+        if (unitType == UnitTypeEnum.enemy) {
+
+            CheckAllyNearRoutine();
+
+        }
+
     }
 
     public void action(Vector2 destination, GameObject other) {
 
-        destination = Camera.main.ScreenToWorldPoint(destination);
+        //destination = Camera.main.ScreenToWorldPoint(destination);
         //destination.y = Screen.height - destination.y;
 
         Vector2 previousPosition = Vector3.zero;
@@ -184,5 +192,43 @@ public class UnitController : MonoBehaviour {
             GameContext.Get.selectedEnemyUnits.Remove(this);
         }
 
+    }
+
+    void CheckAllyNearRoutine() {
+
+        this.tt("CheckAllyNearRoutine").Loop((handler)=> {
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 4f);
+
+            foreach (Collider2D collider in colliders) {
+
+                UnitController unit = collider.GetComponent<UnitController>();
+
+                if (unit && unit.unitType == UnitTypeEnum.ally) {
+
+                    debugCircle = unit.gameObject;
+
+                    this.action(unit.transform.position, unit.gameObject);
+
+                    handler.EndLoop();
+                }
+
+            }
+
+            handler.Wait(1);
+
+            print("cada cuanto corre esto");
+
+        });
+
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        if (debugCircle) {
+            Gizmos.DrawWireSphere(debugCircle.transform.position, 4f);
+        }
+        
     }
 }
