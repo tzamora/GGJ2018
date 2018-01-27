@@ -38,9 +38,17 @@ public class MouseManagerController : MonoBehaviour {
             // check if we have items inside the rect
             //
 
-            List<UnitController> playerUnits = GameContext.Get.playerUnits;
+            List<UnitController> allUnits = new List<UnitController>();
+            
+            allUnits.AddRange(GameContext.Get.playerUnits);
 
-            foreach (UnitController unit in playerUnits)
+            allUnits.AddRange(GameContext.Get.enemyUnits);
+
+            //
+            // evaluate player units
+            //
+
+            foreach (UnitController unit in allUnits)
             {
                 Vector2 screenPosition = Camera.main.WorldToScreenPoint(unit.transform.localPosition);
 
@@ -55,13 +63,11 @@ public class MouseManagerController : MonoBehaviour {
         };
     }
 
-    void MouseDragHandlerRoutine()
+    void MouseClickHandlerRoutine()
     {
         this.tt().Loop((handler) =>{
 
             if (Input.GetMouseButtonDown(1)) {
-
-                print("por lo menos estamos");
 
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -77,9 +83,9 @@ public class MouseManagerController : MonoBehaviour {
 
                 }
 
-                foreach (UnitController unit in GameContext.Get.selectedUnits) {
+                foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
 
-                 unit.action(Input.mousePosition, hitGameObject);
+                 unit.action(mousePos, hitGameObject);
 
                 }
 
@@ -88,7 +94,7 @@ public class MouseManagerController : MonoBehaviour {
         });
     }
 
-    void MouseClickHandlerRoutine() {
+    void MouseDragHandlerRoutine() {
 
         this.tt().Loop((handler) => {
 

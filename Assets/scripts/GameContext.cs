@@ -8,9 +8,11 @@ public class GameContext : MonoSingleton<GameContext> {
 
 	public List<UnitController> playerUnits;
 
-    public List<UnitController> selectedUnits;
+    public List<UnitController> selectedPlayerUnits;
 
     public List<UnitController> enemyUnits;
+
+    public List<UnitController> selectedEnemyUnits;
 
     public AudioClip BackgroundSound;
 

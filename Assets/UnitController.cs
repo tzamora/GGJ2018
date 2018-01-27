@@ -7,7 +7,7 @@ public class UnitController : MonoBehaviour {
 
     public int hp = 10;
 
-    public int power = 10;
+    public int power = 1;
 
     public enum UnitTypeEnum { ally, enemy };
 
@@ -21,24 +21,49 @@ public class UnitController : MonoBehaviour {
 
     Animator setAnimation;
 
+    GameObject debugCircle;
+
     // Use this for initialization
     void Start () {
 
         setAnimation = GetComponent<Animator>();
 
+        if (unitType == UnitTypeEnum.enemy) {
+
+            CheckAllyNearRoutine();
+
+        }
+
     }
 
     public void action(Vector2 destination, GameObject other) {
 
-        destination = Camera.main.ScreenToWorldPoint(destination);
+        //destination = Camera.main.ScreenToWorldPoint(destination);
         //destination.y = Screen.height - destination.y;
+
+        Vector2 previousPosition = Vector3.zero;
 
         this.tt("MoveRoutine").Reset().Loop((handler) => {
 
             //Animator.play();
 
+            Vector2 direction = (Vector2)transform.position - previousPosition;
+
+            if (direction.x > 0) {
+
+                transform.localScale = new Vector3(1, 1, 1);
+
+            }
+
+            if (direction.x < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
             // if right (theScale.x *= -1;)
             // if left  (theScale.x *= 1;)
+
+            previousPosition = transform.position;
 
             setAnimation.SetInteger("ani", 1);
 
@@ -60,18 +85,23 @@ public class UnitController : MonoBehaviour {
 
     void handleAction(GameObject other) {
 
+        print("vamos a hacer una accion");
+
+        if (!other) {
+
+            return;
+
+        }
+
         UnitController enemyUnit = other.GetComponent<UnitController>();
 
         if (enemyUnit)
         {
-            print("encontramos algo");
-
             UnitController unit = other.GetComponent<UnitController>();
 
             if (unit.unitType == UnitTypeEnum.enemy)
             {
-                print("encontramos a un enemigo");
-
+                print("vamos a atacarlo");
                 damage(unit);
             }
 
@@ -87,17 +117,17 @@ public class UnitController : MonoBehaviour {
 
         this.tt().Add(0.2f, handler => {
              
-            enemyRenderer.material.color = Color.red;
+            if(enemyRenderer) enemyRenderer.material.color = Color.red;
 
         }).Add(0.2f, handler => {
 
-            enemyRenderer.material.color = defaultColor;
+            if (enemyRenderer) enemyRenderer.material.color = defaultColor;
 
         }).Add(()=> {
 
             other.hp -= this.power;
 
-            if (other.hp <= 0)
+            if (other && other.hp <= 0)
             {
 
                 Destroy(other.gameObject);
@@ -110,7 +140,7 @@ public class UnitController : MonoBehaviour {
 
             }
 
-        }).If(()=> hp > 0).Repeat();
+        }).If(()=> other && other.hp > 0).Repeat();
 
         //
         // damage the other unit
@@ -131,14 +161,74 @@ public class UnitController : MonoBehaviour {
         // add to selected list
         //
 
-        if (!GameContext.Get.selectedUnits.Contains(this)) {
-            GameContext.Get.selectedUnits.Add(this);
+        if (this.unitType == UnitTypeEnum.ally) {
+
+            if (!GameContext.Get.selectedPlayerUnits.Contains(this))
+            {
+                GameContext.Get.selectedPlayerUnits.Add(this);
+            }
         }
-        
+
+        if (this.unitType == UnitTypeEnum.enemy)
+        {
+            if (!GameContext.Get.selectedEnemyUnits.Contains(this))
+            {
+                GameContext.Get.selectedEnemyUnits.Add(this);
+            }
+        }
+
 
     }
 
     void deselect() {
-        GameContext.Get.selectedUnits.Remove(this);
+
+        if (this.unitType == UnitTypeEnum.ally)
+        {
+            GameContext.Get.selectedPlayerUnits.Remove(this);
+        }
+
+        if (this.unitType == UnitTypeEnum.enemy)
+        {
+            GameContext.Get.selectedEnemyUnits.Remove(this);
+        }
+
+    }
+
+    void CheckAllyNearRoutine() {
+
+        this.tt("CheckAllyNearRoutine").Loop((handler)=> {
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 4f);
+
+            foreach (Collider2D collider in colliders) {
+
+                UnitController unit = collider.GetComponent<UnitController>();
+
+                if (unit && unit.unitType == UnitTypeEnum.ally) {
+
+                    debugCircle = unit.gameObject;
+
+                    this.action(unit.transform.position, unit.gameObject);
+
+                    handler.EndLoop();
+                }
+
+            }
+
+            handler.Wait(1);
+
+            print("cada cuanto corre esto");
+
+        });
+
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        if (debugCircle) {
+            Gizmos.DrawWireSphere(debugCircle.transform.position, 4f);
+        }
+        
     }
 }
