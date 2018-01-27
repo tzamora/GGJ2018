@@ -7,7 +7,7 @@ public class UnitController : MonoBehaviour {
 
     public int hp = 10;
 
-    public int attack = 10;
+    public int power = 10;
 
     public enum UnitTypeEnum { ally, enemy };
 
@@ -33,10 +33,16 @@ public class UnitController : MonoBehaviour {
 
         this.tt("MoveRoutine").Reset().Loop((handler) => {
 
+            //Animator.play();
+
             transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * movementSpeed);
+
             if (transform.position == (Vector3)destination)
             {
                 handleAction(other);
+
+                // .stop
+
                 handler.EndLoop();
             }
 
@@ -46,18 +52,63 @@ public class UnitController : MonoBehaviour {
 
     void handleAction(GameObject other) {
 
-        if(other is UnitController)
-        {
+        UnitController enemyUnit = other.GetComponent<UnitController>();
 
-           UnitController unit = other.GetComponent<UnitController>();
+        if (enemyUnit)
+        {
+            print("encontramos algo");
+
+            UnitController unit = other.GetComponent<UnitController>();
 
             if (unit.unitType == UnitTypeEnum.enemy)
             {
-                // attack();
+                print("encontramos a un enemigo");
+
+                damage(unit);
             }
 
         }
 
+    }
+
+    public void damage(UnitController other) {
+
+        Renderer enemyRenderer = other.GetComponent<Renderer>();
+
+        Color defaultColor = enemyRenderer.material.color;
+
+        this.tt().Add(0.2f, handler => {
+             
+            enemyRenderer.material.color = Color.red;
+
+        }).Add(0.2f, handler => {
+
+            enemyRenderer.material.color = defaultColor;
+
+        }).Add(()=> {
+
+            other.hp -= this.power;
+
+            if (other.hp <= 0)
+            {
+
+                Destroy(other.gameObject);
+
+                // death animation
+
+                
+
+                // destroy
+
+            }
+
+        }).If(()=> hp > 0).Repeat();
+
+        //
+        // damage the other unit
+        //
+
+        
     }
 
     public void select() {
