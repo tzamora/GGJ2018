@@ -33,15 +33,39 @@ public class UnitController : MonoBehaviour {
 
         this.tt("MoveRoutine").Reset().Loop((handler) => {
 
+            //Animator.play();
+
             transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * movementSpeed);
+
             if (transform.position == (Vector3)destination)
             {
                 handleAction(other);
+
+                // .stop
+
                 handler.EndLoop();
             }
 
         });
 
+    }
+
+    void DeathRoutine()
+    {
+
+        this.tt("MoveRoutine").Loop((handler) =>
+        {
+
+            if (hp <= 0)
+            {
+
+                // death animation
+
+                // destroy
+
+            }
+
+        });
     }
 
     void handleAction(GameObject other) {
@@ -53,7 +77,7 @@ public class UnitController : MonoBehaviour {
 
             if (unit.unitType == UnitTypeEnum.enemy)
             {
-                // attack();
+                attack();
             }
 
         }
