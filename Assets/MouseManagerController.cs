@@ -40,7 +40,7 @@ public class MouseManagerController : MonoBehaviour {
 
             List<UnitController> allUnits = new List<UnitController>();
             
-            allUnits.AddRange(GameContext.Get.playerUnits);
+            allUnits.AddRange(GameContext.Get.allyUnits);
 
             allUnits.AddRange(GameContext.Get.enemyUnits);
 

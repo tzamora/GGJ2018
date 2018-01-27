@@ -23,7 +23,7 @@ public class AllySpawnerController : MonoBehaviour {
 
         GameObject newAlly = GameObject.Instantiate(ClericPrefab, spawnPosition.position, Quaternion.identity);
 
-        GameContext.Get.playerUnits.Add(newAlly.GetComponent<UnitController>());
+        GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
 
     }
 }
