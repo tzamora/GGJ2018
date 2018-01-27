@@ -19,7 +19,7 @@ public class CrossAppearAndDestroy : MonoBehaviour {
 
         this.tt().Loop(time, delegate (ttHandler handler)
         {
-            transform.localScale -= new Vector3(speed, speed, speed);
+            transform.localScale = new Vector3(transform.localScale.x - speed, transform.localScale.y - speed, 1);
 
         }).Add( t => { Destroy(gameObject);  } );
 

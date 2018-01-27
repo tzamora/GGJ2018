@@ -19,12 +19,14 @@ public class UnitController : MonoBehaviour {
 
     public float movementSpeed = 10f;
 
+    Animator setAnimation;
+
     // Use this for initialization
     void Start () {
-    
 
-		
-	}
+        setAnimation = GetComponent<Animator>();
+
+    }
 
     public void action(Vector2 destination, GameObject other) {
 
@@ -35,6 +37,11 @@ public class UnitController : MonoBehaviour {
 
             //Animator.play();
 
+            // if right (theScale.x *= -1;)
+            // if left  (theScale.x *= 1;)
+
+            setAnimation.SetInteger("ani", 1);
+
             transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * movementSpeed);
 
             if (transform.position == (Vector3)destination)
@@ -42,6 +49,7 @@ public class UnitController : MonoBehaviour {
                 handleAction(other);
 
                 // .stop
+                setAnimation.SetInteger("ani", 0);
 
                 handler.EndLoop();
             }
