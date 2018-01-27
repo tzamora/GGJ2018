@@ -7,7 +7,7 @@ public class UnitController : MonoBehaviour {
 
     public int hp = 10;
 
-    public int attack = 10;
+    public int power = 10;
 
     public enum UnitTypeEnum { ally, enemy };
 
@@ -50,38 +50,65 @@ public class UnitController : MonoBehaviour {
 
     }
 
-    void DeathRoutine()
-    {
+    void handleAction(GameObject other) {
 
-        this.tt("MoveRoutine").Loop((handler) =>
+        UnitController enemyUnit = other.GetComponent<UnitController>();
+
+        if (enemyUnit)
         {
+            print("encontramos algo");
 
-            if (hp <= 0)
+            UnitController unit = other.GetComponent<UnitController>();
+
+            if (unit.unitType == UnitTypeEnum.enemy)
+            {
+                print("encontramos a un enemigo");
+
+                damage(unit);
+            }
+
+        }
+
+    }
+
+    public void damage(UnitController other) {
+
+        Renderer enemyRenderer = other.GetComponent<Renderer>();
+
+        Color defaultColor = enemyRenderer.material.color;
+
+        this.tt().Add(0.2f, handler => {
+             
+            enemyRenderer.material.color = Color.red;
+
+        }).Add(0.2f, handler => {
+
+            enemyRenderer.material.color = defaultColor;
+
+        }).Add(()=> {
+
+            other.hp -= this.power;
+
+            if (other.hp <= 0)
             {
 
+                Destroy(other.gameObject);
+
                 // death animation
+
+                
 
                 // destroy
 
             }
 
-        });
-    }
+        }).If(()=> hp > 0).Repeat();
 
-    void handleAction(GameObject other) {
+        //
+        // damage the other unit
+        //
 
-        if(other is UnitController)
-        {
-
-           UnitController unit = other.GetComponent<UnitController>();
-
-            if (unit.unitType == UnitTypeEnum.enemy)
-            {
-                attack();
-            }
-
-        }
-
+        
     }
 
     public void select() {
