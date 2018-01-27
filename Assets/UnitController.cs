@@ -5,25 +5,60 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour {
 
+    Material originalMaterial;
+
+    public Material highlightMaterial;
+
+    public float movementSpeed = 10f;
+
     // Use this for initialization
     void Start () {
-
-        MoveRoutine();
+    
 
 		
 	}
 
 
-    void MoveRoutine() {
+    void MoveRoutine(Vector2 destination) {
 
-        this.tt().Loop((handler)=> {
+        destination = Camera.main.ScreenToWorldPoint(destination);
+        //destination.y = Screen.height - destination.y;
 
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        this.tt("MoveRoutine").Reset().Loop((handler)=> {
 
-            transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+            transform.position = Vector2.Lerp(transform.position, destination, Time.deltaTime * movementSpeed);
+            if (transform.position == (Vector3)destination) {
+                print("llegamos");
+                handler.EndLoop();
+            }
 
-            //print(mousePosition);
         });
 
+    }
+
+    public void action(Vector2 destination) {
+
+        MoveRoutine(destination);
+
+    }
+
+    public void select() {
+
+        Renderer renderer = GetComponent<Renderer>();
+
+        originalMaterial = renderer.material;
+
+        renderer.material = highlightMaterial;
+
+        //
+        // add to selected list
+        //
+
+        GameContext.Get.selectedUnits.Add(this);
+
+    }
+
+    void deselect() {
+        GameContext.Get.selectedUnits.Remove(this);
     }
 }
