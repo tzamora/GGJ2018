@@ -5,7 +5,7 @@ using matnesis.TeaTime;
 
 public class CrossAppearAndDestroy : MonoBehaviour {
 
-    public float speed = 1;
+    public float speed = 0.1f;
     public float time = 1;
 
 
@@ -19,7 +19,8 @@ public class CrossAppearAndDestroy : MonoBehaviour {
 
         this.tt().Loop(time, delegate (ttHandler handler)
         {
-            transform.localScale = new Vector3(transform.localScale.x - speed, transform.localScale.y - speed, 1);
+
+            transform.localScale -= new Vector3(speed, speed, speed) * Time.deltaTime;
 
         }).Add( t => { Destroy(gameObject);  } );
 
