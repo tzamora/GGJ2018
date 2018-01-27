@@ -48,6 +48,7 @@ public class UnitController : MonoBehaviour {
 
         if(other is UnitController)
         {
+
            UnitController unit = other.GetComponent<UnitController>();
 
             if (unit.unitType == UnitTypeEnum.enemy)
@@ -71,7 +72,10 @@ public class UnitController : MonoBehaviour {
         // add to selected list
         //
 
-        GameContext.Get.selectedUnits.Add(this);
+        if (!GameContext.Get.selectedUnits.Contains(this)) {
+            GameContext.Get.selectedUnits.Add(this);
+        }
+        
 
     }
 
