@@ -1,25 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using matnesis.TeaTime;
 
 public class GameContext : MonoSingleton<GameContext> {
 
-	public GameObject player;
+	public List<UnitController> playerUnits;
 
-	public GameObject playerPrefab;
+    public List<UnitController> selectedUnits;
 
-	public GameObject DieMenuPanel;
+    public List<UnitController> enemyUnits;
 
-	public AudioClip ExplosionSound;
-
-	public AudioClip BackgroundSound;
-
-	public AudioClip ReactorSound;
-
-	public int EnergyBlocksDestroyed = 0;
-
-	public Transform startingPosition;
+    public AudioClip BackgroundSound;
 
 	void Start()
 	{
@@ -35,7 +28,7 @@ public class GameContext : MonoSingleton<GameContext> {
 
 		var currentCameraPosition = Camera.main.transform.position;
 
-		SoundManager.Get.PlayClip (ExplosionSound, false);
+		// SoundManager.Get.PlayClip (ExplosionSound, false);
 
 		this.tt ().Add (0.01f, ()=>{
 
@@ -63,16 +56,5 @@ public class GameContext : MonoSingleton<GameContext> {
 
 		});
 
-	}
-
-	public void resetLevel(){
-	
-		Destroy (Camera.main.gameObject);
-
-		GameObject player = Instantiate(playerPrefab, GameContext.Get.startingPosition.position, Quaternion.identity);
-
-		//SceneManager.LoadScene(scene.name);
-		GameContext.Get.player = player;
-	
 	}
 }

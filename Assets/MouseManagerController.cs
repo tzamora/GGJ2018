@@ -14,7 +14,9 @@ public class MouseManagerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        MouseHandlerRoutine();
+        MouseDragHandlerRoutine();
+
+        MouseClickHandlerRoutine();
 
 	}
 
@@ -31,11 +33,46 @@ public class MouseManagerController : MonoBehaviour {
             // Draw the texture.
             GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, 0.5f);
             GUI.DrawTexture(rect, selectionTexture);
+
+            //
+            // check if we have items inside the rect
+            //
+
+            List<UnitController> playerUnits = GameContext.Get.playerUnits;
+
+            foreach (UnitController unit in playerUnits)
+            {
+                Vector2 screenPosition = Camera.main.WorldToScreenPoint(unit.transform.localPosition);
+
+                screenPosition.y = Screen.height - screenPosition.y;
+
+                if (rect.Contains(screenPosition))
+                {
+                    unit.GetComponent<UnitController>().select();
+                }
+                
+            }
         };
     }
 
-    // Update is called once per frame
-    void MouseHandlerRoutine() {
+    void MouseDragHandlerRoutine()
+    {
+        this.tt().Loop((handler) =>{
+
+            if (Input.GetMouseButtonDown(1)) {
+
+                foreach (UnitController unit in GameContext.Get.selectedUnits) {
+
+                    unit.action(Input.mousePosition);
+
+                }
+
+            }
+
+        });
+    }
+
+    void MouseClickHandlerRoutine() {
 
         this.tt().Loop((handler) => {
 
