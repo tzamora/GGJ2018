@@ -6,7 +6,7 @@ using matnesis.TeaTime;
 
 public class GameContext : MonoSingleton<GameContext> {
 
-	public List<UnitController> playerUnits;
+	public List<UnitController> allyUnits;
 
     public List<UnitController> selectedPlayerUnits;
 

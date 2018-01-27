@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using matnesis.TeaTime;
 using UnityEngine;
+using System.Linq;
 
 public class UnitController : MonoBehaviour {
 
@@ -18,10 +19,12 @@ public class UnitController : MonoBehaviour {
     public Material highlightMaterial;
 
     public float movementSpeed = 10f;
-
+    
     Animator setAnimation;
 
-    GameObject debugCircle;
+    bool isBusy = false;
+
+    List<GameObject> debugCircles = new List<GameObject>();
 
     // Use this for initialization
     void Start () {
@@ -45,23 +48,19 @@ public class UnitController : MonoBehaviour {
 
         this.tt("MoveRoutine").Reset().Loop((handler) => {
 
-            //Animator.play();
+            isBusy = true;
 
             Vector2 direction = (Vector2)transform.position - previousPosition;
 
-            if (direction.x > 0) {
-
+            if (direction.x > 0)
+            {
                 transform.localScale = new Vector3(1, 1, 1);
-
             }
 
             if (direction.x < 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
-
-            // if right (theScale.x *= -1;)
-            // if left  (theScale.x *= 1;)
 
             previousPosition = transform.position;
 
@@ -73,9 +72,6 @@ public class UnitController : MonoBehaviour {
             {
                 handleAction(other);
 
-                // .stop
-                setAnimation.SetInteger("ani", 0);
-
                 handler.EndLoop();
             }
 
@@ -85,26 +81,42 @@ public class UnitController : MonoBehaviour {
 
     void handleAction(GameObject other) {
 
-        print("vamos a hacer una accion");
-
         if (!other) {
-
             return;
-
         }
 
-        UnitController enemyUnit = other.GetComponent<UnitController>();
+        UnitController otherUnit = other.GetComponent<UnitController>();
 
-        if (enemyUnit)
+        if (otherUnit)
         {
-            UnitController unit = other.GetComponent<UnitController>();
+            //
+            // stop friendly attacks
+            //
 
-            if (unit.unitType == UnitTypeEnum.enemy)
+            if (this.unitType != otherUnit.unitType)
             {
-                print("vamos a atacarlo");
-                damage(unit);
-            }
+                float distance = Vector3.Distance(this.transform.position, otherUnit.transform.position);
 
+                print(distance);
+
+                bool isNearEnough = distance <= 1;
+
+                if (isNearEnough)
+                {
+
+                    setAnimation.SetInteger("ani", 2);
+                    damage(otherUnit);
+
+                }
+                else
+                {
+
+                    this.action(otherUnit.transform.position, otherUnit.gameObject);
+
+                }
+
+                
+            }
         }
 
     }
@@ -129,6 +141,18 @@ public class UnitController : MonoBehaviour {
 
             if (other && other.hp <= 0)
             {
+                setAnimation.SetInteger("ani", 3);
+
+                if (other.unitType == UnitTypeEnum.ally)
+                {
+                    GameContext.Get.allyUnits.Remove(other);
+                }
+                else
+                {
+                    GameContext.Get.enemyUnits.Remove(other);
+                }
+
+                isBusy = false;
 
                 Destroy(other.gameObject);
 
@@ -196,9 +220,13 @@ public class UnitController : MonoBehaviour {
 
     void CheckAllyNearRoutine() {
 
-        this.tt("CheckAllyNearRoutine").Loop((handler)=> {
+        this.tt("CheckAllyNearRoutine").If(() => !isBusy ).Add(()=> {
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 4f);
+            List<Collider2D> colliders = Physics2D.OverlapCircleAll(transform.position, 5f).ToList();
+
+            colliders = colliders.OrderBy(
+                x => Vector2.Distance(this.transform.position, x.transform.position)
+            ).ToList();
 
             foreach (Collider2D collider in colliders) {
 
@@ -206,29 +234,25 @@ public class UnitController : MonoBehaviour {
 
                 if (unit && unit.unitType == UnitTypeEnum.ally) {
 
-                    debugCircle = unit.gameObject;
+                    debugCircles.Add(unit.gameObject);
 
                     this.action(unit.transform.position, unit.gameObject);
 
-                    handler.EndLoop();
                 }
 
             }
 
-            handler.Wait(1);
-
             print("cada cuanto corre esto");
 
-        });
+        }).Add(1).Repeat();
 
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        if (debugCircle) {
-            Gizmos.DrawWireSphere(debugCircle.transform.position, 4f);
-        }
-        
-    }
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.white;
+    //    foreach (var circle in debugCircles) {
+    //        Gizmos.DrawWireSphere(circle.transform.position, 1f);
+    //    }
+    //}
 }
