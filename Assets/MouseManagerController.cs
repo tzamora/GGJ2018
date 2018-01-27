@@ -61,9 +61,25 @@ public class MouseManagerController : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(1)) {
 
+                print("por lo menos estamos");
+
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                GameObject hitGameObject = null;
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+                
+                if (hit)
+                {
+                    hitGameObject = hit.transform.gameObject;
+
+                    print(hitGameObject);
+
+                }
+
                 foreach (UnitController unit in GameContext.Get.selectedUnits) {
 
-                    unit.action(Input.mousePosition);
+                 unit.action(Input.mousePosition, hitGameObject);
 
                 }
 

@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour {
 
+    public int hp = 10;
+
+    public int attack = 10;
+
+    public enum UnitTypeEnum { ally, enemy };
+
+    public UnitTypeEnum unitType;
+
     Material originalMaterial;
 
     public Material highlightMaterial;
@@ -18,17 +26,17 @@ public class UnitController : MonoBehaviour {
 		
 	}
 
-
-    void MoveRoutine(Vector2 destination) {
+    public void action(Vector2 destination, GameObject other) {
 
         destination = Camera.main.ScreenToWorldPoint(destination);
         //destination.y = Screen.height - destination.y;
 
-        this.tt("MoveRoutine").Reset().Loop((handler)=> {
+        this.tt("MoveRoutine").Reset().Loop((handler) => {
 
-            transform.position = Vector2.Lerp(transform.position, destination, Time.deltaTime * movementSpeed);
-            if (transform.position == (Vector3)destination) {
-                print("llegamos");
+            transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * movementSpeed);
+            if (transform.position == (Vector3)destination)
+            {
+                handleAction(other);
                 handler.EndLoop();
             }
 
@@ -36,9 +44,18 @@ public class UnitController : MonoBehaviour {
 
     }
 
-    public void action(Vector2 destination) {
+    void handleAction(GameObject other) {
 
-        MoveRoutine(destination);
+        if(other is UnitController)
+        {
+           UnitController unit = other.GetComponent<UnitController>();
+
+            if (unit.unitType == UnitTypeEnum.enemy)
+            {
+                // attack();
+            }
+
+        }
 
     }
 
