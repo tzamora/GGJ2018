@@ -33,12 +33,29 @@ public class UnitController : MonoBehaviour {
         destination = Camera.main.ScreenToWorldPoint(destination);
         //destination.y = Screen.height - destination.y;
 
+        Vector2 previousPosition = Vector3.zero;
+
         this.tt("MoveRoutine").Reset().Loop((handler) => {
 
             //Animator.play();
 
+            Vector2 direction = (Vector2)transform.position - previousPosition;
+
+            if (direction.x > 0) {
+
+                transform.localScale = new Vector3(1, 1, 1);
+
+            }
+
+            if (direction.x < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
             // if right (theScale.x *= -1;)
             // if left  (theScale.x *= 1;)
+
+            previousPosition = transform.position;
 
             setAnimation.SetInteger("ani", 1);
 
@@ -129,20 +146,42 @@ public class UnitController : MonoBehaviour {
 
         originalMaterial = renderer.material;
 
-        renderer.material = highlightMaterial;
+        //renderer.material = highlightMaterial;
 
         //
         // add to selected list
         //
 
-        if (!GameContext.Get.selectedPlayerUnits.Contains(this)) {
-            GameContext.Get.selectedPlayerUnits.Add(this);
+        if (this.unitType == UnitTypeEnum.ally) {
+
+            if (!GameContext.Get.selectedPlayerUnits.Contains(this))
+            {
+                GameContext.Get.selectedPlayerUnits.Add(this);
+            }
         }
-        
+
+        if (this.unitType == UnitTypeEnum.enemy)
+        {
+            if (!GameContext.Get.selectedEnemyUnits.Contains(this))
+            {
+                GameContext.Get.selectedEnemyUnits.Add(this);
+            }
+        }
+
 
     }
 
     void deselect() {
-        GameContext.Get.selectedPlayerUnits.Remove(this);
+
+        if (this.unitType == UnitTypeEnum.ally)
+        {
+            GameContext.Get.selectedPlayerUnits.Remove(this);
+        }
+
+        if (this.unitType == UnitTypeEnum.enemy)
+        {
+            GameContext.Get.selectedEnemyUnits.Remove(this);
+        }
+
     }
 }

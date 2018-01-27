@@ -38,8 +38,8 @@ public class MouseManagerController : MonoBehaviour {
             // check if we have items inside the rect
             //
 
-            List<UnitController> allUnits = GameContext.Get.playerUnits;
-
+            List<UnitController> allUnits = new List<UnitController>();
+            
             allUnits.AddRange(GameContext.Get.playerUnits);
 
             allUnits.AddRange(GameContext.Get.enemyUnits);
@@ -68,8 +68,6 @@ public class MouseManagerController : MonoBehaviour {
         this.tt().Loop((handler) =>{
 
             if (Input.GetMouseButtonDown(1)) {
-
-                print("por lo menos estamos");
 
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
