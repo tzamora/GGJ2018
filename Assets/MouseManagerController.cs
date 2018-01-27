@@ -38,9 +38,17 @@ public class MouseManagerController : MonoBehaviour {
             // check if we have items inside the rect
             //
 
-            List<UnitController> playerUnits = GameContext.Get.playerUnits;
+            List<UnitController> allUnits = GameContext.Get.playerUnits;
 
-            foreach (UnitController unit in playerUnits)
+            allUnits.AddRange(GameContext.Get.playerUnits);
+
+            allUnits.AddRange(GameContext.Get.enemyUnits);
+
+            //
+            // evaluate player units
+            //
+
+            foreach (UnitController unit in allUnits)
             {
                 Vector2 screenPosition = Camera.main.WorldToScreenPoint(unit.transform.localPosition);
 
@@ -77,7 +85,7 @@ public class MouseManagerController : MonoBehaviour {
 
                 }
 
-                foreach (UnitController unit in GameContext.Get.selectedUnits) {
+                foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
 
                  unit.action(Input.mousePosition, hitGameObject);
 

@@ -7,7 +7,7 @@ public class UnitController : MonoBehaviour {
 
     public int hp = 10;
 
-    public int power = 10;
+    public int power = 1;
 
     public enum UnitTypeEnum { ally, enemy };
 
@@ -52,18 +52,22 @@ public class UnitController : MonoBehaviour {
 
     void handleAction(GameObject other) {
 
+        print("vamos a hacer una accion");
+
+        if (!other) {
+
+            return;
+
+        }
+
         UnitController enemyUnit = other.GetComponent<UnitController>();
 
         if (enemyUnit)
         {
-            print("encontramos algo");
-
             UnitController unit = other.GetComponent<UnitController>();
 
             if (unit.unitType == UnitTypeEnum.enemy)
             {
-                print("encontramos a un enemigo");
-
                 damage(unit);
             }
 
@@ -79,17 +83,17 @@ public class UnitController : MonoBehaviour {
 
         this.tt().Add(0.2f, handler => {
              
-            enemyRenderer.material.color = Color.red;
+            if(enemyRenderer) enemyRenderer.material.color = Color.red;
 
         }).Add(0.2f, handler => {
 
-            enemyRenderer.material.color = defaultColor;
+            if (enemyRenderer) enemyRenderer.material.color = defaultColor;
 
         }).Add(()=> {
 
             other.hp -= this.power;
 
-            if (other.hp <= 0)
+            if (other && other.hp <= 0)
             {
 
                 Destroy(other.gameObject);
@@ -102,7 +106,7 @@ public class UnitController : MonoBehaviour {
 
             }
 
-        }).If(()=> hp > 0).Repeat();
+        }).If(()=> other && other.hp > 0).Repeat();
 
         //
         // damage the other unit
@@ -123,14 +127,14 @@ public class UnitController : MonoBehaviour {
         // add to selected list
         //
 
-        if (!GameContext.Get.selectedUnits.Contains(this)) {
-            GameContext.Get.selectedUnits.Add(this);
+        if (!GameContext.Get.selectedPlayerUnits.Contains(this)) {
+            GameContext.Get.selectedPlayerUnits.Add(this);
         }
         
 
     }
 
     void deselect() {
-        GameContext.Get.selectedUnits.Remove(this);
+        GameContext.Get.selectedPlayerUnits.Remove(this);
     }
 }
