@@ -93,6 +93,7 @@ public class UnitController : MonoBehaviour {
 
             if (unit.unitType == UnitTypeEnum.enemy)
             {
+                print("vamos a atacarlo");
                 damage(unit);
             }
 
@@ -146,7 +147,7 @@ public class UnitController : MonoBehaviour {
 
         originalMaterial = renderer.material;
 
-        //renderer.material = highlightMaterial;
+        renderer.material = highlightMaterial;
 
         //
         // add to selected list
