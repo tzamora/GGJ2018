@@ -17,6 +17,8 @@ public class MineralController : MonoBehaviour {
 
     public Material highlightMaterial;
 
+    public AudioClip extractSound;
+
     public bool isDepleted = false;
 
     public void extract(UnitController unit) {
@@ -29,8 +31,11 @@ public class MineralController : MonoBehaviour {
 
         this.tt("extractMineralRoutine").Add(() => {
 
+
             if (amount > 0)
             {
+                SoundManager.Get.PlayClip(extractSound, false);
+
                 amount--;
 
                 if (unit.unitType == UnitController.UnitTypeEnum.ally)
