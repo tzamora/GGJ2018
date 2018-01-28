@@ -122,7 +122,8 @@ MonoBehaviour:
   damageLabelPrefab: {fileID: 1089506703870310, guid: 674de90b51e643d4f8b3398a0e8c59c0,
     type: 2}
   unitType: 1
-  highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
+  range: 10
+  highlightMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   movementSpeed: 2
   audioWalk: {fileID: 8300000, guid: 9601b076bd864ae45b9c195f680428eb, type: 3}
   audioAttack: {fileID: 8300000, guid: a04f282319c2b974cbb241cf6af8c54d, type: 3}
