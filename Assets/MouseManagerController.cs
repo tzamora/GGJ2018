@@ -11,6 +11,8 @@ public class MouseManagerController : MonoBehaviour {
 
     public Texture selectionTexture;
 
+    public GameObject crossHelper;
+
     // Use this for initialization
     void Start () {
 
@@ -69,12 +71,16 @@ public class MouseManagerController : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(1)) {
 
+
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                 GameObject hitGameObject = null;
 
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-                
+
+                // cross helper 
+                Instantiate(crossHelper, mousePos, Quaternion.identity);
+
                 if (hit)
                 {
                     hitGameObject = hit.transform.gameObject;
