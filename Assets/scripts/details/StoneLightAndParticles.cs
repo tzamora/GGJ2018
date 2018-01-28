@@ -12,8 +12,7 @@ public class StoneLightAndParticles : MonoBehaviour {
     SpriteRenderer colorComponent;
     public GameObject StoneLights;
     bool activated = false;
-    public AudioClip activateBeacon;
-
+    public AudioClip beaconSound;
 
     void Start () {
 
@@ -30,9 +29,9 @@ public class StoneLightAndParticles : MonoBehaviour {
 
             if (ally.unitType == UnitController.UnitTypeEnum.ally)
             {
-                SoundManager.Get.PlayClip(activateBeacon, false);
                 print("ha entrado una vez");
                 activated = true;
+                SoundManager.Get.PlayClip(beaconSound, false);
                 BeaconController.allActivated++;
                 Animation();
             }
@@ -43,7 +42,7 @@ public class StoneLightAndParticles : MonoBehaviour {
     public void Animation()
     {
 
-        Instantiate(StoneLights, transform.position, Quaternion.identity);
+        Instantiate(StoneLights, transform.localPosition, Quaternion.identity);
 
         this.tt().Loop(duration, delegate (ttHandler handler)
         {

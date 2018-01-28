@@ -21,7 +21,10 @@ public class MineralController : MonoBehaviour {
 
     public bool isDepleted = false;
 
+    public AudioClip minning;
+
     public void extract(UnitController unit) {
+
 
         Renderer renderer = GetComponent<Renderer>();
 
@@ -37,6 +40,8 @@ public class MineralController : MonoBehaviour {
                 SoundManager.Get.PlayClip(extractSound, false);
 
                 amount--;
+
+                SoundManager.Get.PlayClip(minning, false);
 
                 if (unit.unitType == UnitController.UnitTypeEnum.ally)
                 {

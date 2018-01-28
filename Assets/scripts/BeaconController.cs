@@ -37,6 +37,7 @@ public class BeaconController : MonoBehaviour {
 
         if (once == true)
         {
+
             AllBeaconsReady();
             requiredBeacons = 999;
             once = false;
