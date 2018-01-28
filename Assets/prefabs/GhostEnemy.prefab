@@ -25,13 +25,8 @@ GameObject:
   - component: {fileID: 61106187707466420}
   - component: {fileID: 50950795513335538}
   m_Layer: 0
-<<<<<<< HEAD
   m_Name: GhostEnemy
-  m_TagString: Untagged
-=======
-  m_Name: GHOSTENEMY
   m_TagString: hover
->>>>>>> 4285883ff3ebecd11d9998327f4cba527cd415ce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

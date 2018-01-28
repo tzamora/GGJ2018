@@ -81,15 +81,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1369685047126626}
-<<<<<<< HEAD
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.17556477, y: 2.8052878, z: 3.0234375}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-=======
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.6041687, y: 4.3006096, z: 6.651367}
   m_LocalScale: {x: 1, y: 1, z: 1}
->>>>>>> 4285883ff3ebecd11d9998327f4cba527cd415ce
   m_Children:
   - {fileID: 4422109334461128}
   - {fileID: 4649233256552222}
@@ -161,11 +155,7 @@ MonoBehaviour:
   filledSprite: {fileID: 212383307411134810}
   emptySprite: {fileID: 212808691507811324}
   extractTime: 0.3
-<<<<<<< HEAD
-  highlightMaterial: {fileID: 2100000, guid: 545edcfa2d78b92408a5139bcc69e9f9, type: 2}
-=======
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
---- !u!114 &114520575169210030
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -177,7 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 89ebfbd45ddb4d643936131508e8d035, type: 2}
->>>>>>> 4285883ff3ebecd11d9998327f4cba527cd415ce
 --- !u!212 &212383307411134810
 SpriteRenderer:
   m_ObjectHideFlags: 1
