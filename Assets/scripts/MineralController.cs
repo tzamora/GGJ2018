@@ -17,7 +17,9 @@ public class MineralController : MonoBehaviour {
 
     public Material highlightMaterial;
 
-    public void extract() {
+    public bool isDepleted = false;
+
+    public void extract(UnitController unit) {
 
         Renderer renderer = GetComponent<Renderer>();
 
@@ -35,6 +37,9 @@ public class MineralController : MonoBehaviour {
             else
             {
                 filledSprite.gameObject.SetActive(false);
+                isDepleted = true;
+                unit.isBusy = false;
+                this.tt("extractMineralRoutine").Release();
             }
 
         }).Add(extractTime).Repeat();

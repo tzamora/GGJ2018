@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using matnesis.TeaTime;
 
 public class AllySpawnerController : MonoBehaviour {
 
@@ -16,39 +17,35 @@ public class AllySpawnerController : MonoBehaviour {
 
     public GameObject AnimalPrefab;
 
+    public GameObject ClericEnemyPrefab;
+
+    public GameObject GhostEnemyPrefab;
+
+    public GameObject AnimalEnemyPrefab;
+
+
     public int price = 5;
+
+    public bool readyToUse = false;
 
     public float cooldownTime = 10;
 
     // Use this for initialization
     void Start () {
-        activateSpawner();
+
+        this.tt("spawnerRoutine").Add(() =>
+        {
+            readyToUse = true;
+
+        }).Add(cooldownTime).Repeat();
 	}
 
-    public static int counter = 0;
-
-    void activateSpawner() {
-
-        GameObject newAlly = GameObject.Instantiate(ClericPrefab, spawnPosition.position, Quaternion.identity);
-        newAlly.name = newAlly.name + counter++;
-        GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
-
-    }
-
-    void spawnAlly(GameObject allyPrefab)
-    {
-
-        GameObject newAlly = GameObject.Instantiate(allyPrefab, spawnPosition.position, Quaternion.identity);
-        
-        GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
-
-    }
-
-    public void trySpawn() {
+    public void spawnAlly(UnitController parentUnit) {
 
         int availableMineral = GameContext.Get.mineralAmount;
 
-        if (availableMineral < price) {
+        if (availableMineral < price)
+        {
 
             // TODO: mensaje de error
 
@@ -56,21 +53,62 @@ public class AllySpawnerController : MonoBehaviour {
             return;
         }
 
-        GameObject allyPrefab = null;
+        GameObject unitPrefab = null;
 
-        switch (AllyType) {
-            case AllyTypeEnum.Animal:
-                allyPrefab = AnimalPrefab;
-            break;
-            case AllyTypeEnum.ghost:
-                allyPrefab = GhostPrefab;
-                break;
-            case AllyTypeEnum.Cleric:
-                allyPrefab = ClericPrefab;
-                break;
+        if (parentUnit.unitType == UnitController.UnitTypeEnum.ally)
+        {
+            switch (AllyType)
+            {
+                case AllyTypeEnum.Animal:
+                    unitPrefab = AnimalPrefab;
+                    break;
+                case AllyTypeEnum.ghost:
+                    unitPrefab = GhostPrefab;
+                    break;
+                case AllyTypeEnum.Cleric:
+                    unitPrefab = ClericPrefab;
+                    break;
+            }
+
+            GameObject newAlly = GameObject.Instantiate(unitPrefab, spawnPosition.position, Quaternion.identity);
+            
+            newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.ally;
+
+            GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
         }
-        spawnAlly(allyPrefab);
+        else
+        {
 
+            switch (AllyType)
+            {
+                case AllyTypeEnum.Animal:
+                    unitPrefab = AnimalEnemyPrefab;
+                    break;
+                case AllyTypeEnum.ghost:
+                    unitPrefab = GhostEnemyPrefab;
+                    break;
+                case AllyTypeEnum.Cleric:
+                    unitPrefab = ClericEnemyPrefab;
+                    break;
+            }
+
+            GameObject newAlly = GameObject.Instantiate(unitPrefab, spawnPosition.position, Quaternion.identity);
+
+            newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.enemy;
+
+            GameContext.Get.enemyUnits.Add(newAlly.GetComponent<UnitController>());
+        }
+        
+        readyToUse = false;
 
     }
+
+    //void spawnAlly(GameObject allyPrefab)
+    //{
+
+    //    GameObject newAlly = GameObject.Instantiate(allyPrefab, spawnPosition.position, Quaternion.identity);
+        
+    //    GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
+
+    //}
 }
