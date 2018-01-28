@@ -10,6 +10,8 @@ public class UnitController : MonoBehaviour {
 
     public int power = 1;
 
+    public GameObject damageLabelPrefab;
+
     public enum UnitTypeEnum { ally, enemy };
 
     public UnitTypeEnum unitType;
@@ -158,6 +160,12 @@ public class UnitController : MonoBehaviour {
 
             other.hp -= this.power;
 
+            //
+            // 
+            //
+
+            other.showDamageLabel(this.power);
+
             if (other && (other.hp <= 0))
             {
                 other.setAnimation.SetInteger("ani", 3);
@@ -178,6 +186,20 @@ public class UnitController : MonoBehaviour {
             }
 
         }).Repeat().Immutable();
+    }
+
+    public void showDamageLabel(int amount) {
+
+
+        Vector3 labelPosition = transform.position + new Vector3(0, 0.7f, 0);
+
+        GameObject damageLabel = GameObject.Instantiate(damageLabelPrefab, labelPosition, Quaternion.identity);
+
+        damageLabel.transform.localScale = new Vector3(0.08f, 0.08f, 1);
+
+        damageLabel.GetComponent<TextMesh>().text = "-"+amount+"";
+
+        Destroy(damageLabel, 4f);
     }
 
     public void select() {
