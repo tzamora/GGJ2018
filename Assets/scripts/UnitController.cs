@@ -76,7 +76,6 @@ public class UnitController : MonoBehaviour {
         {
             if (other != null)
             {
-                print(other.transform.position);
                 destination = other.transform.position;
             }
 
