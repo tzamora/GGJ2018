@@ -73,4 +73,12 @@ public class Story : MonoBehaviour {
         }).Add(t => SceneManager.LoadScene(nextLevel));
 
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            SceneManager.LoadScene(nextLevel);
+        };
+    }
 }
