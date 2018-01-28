@@ -71,6 +71,16 @@ public class MouseManagerController : MonoBehaviour {
 
             if (Input.GetMouseButtonDown(1)) {
 
+                //
+                // show the cursor
+                //
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Instantiate(crossHelper, new Vector3(ray.origin.x, ray.origin.y, 0), Quaternion.identity);
+
+                //
+                // no get the mousePos
+                //
 
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -79,7 +89,7 @@ public class MouseManagerController : MonoBehaviour {
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
                 // cross helper 
-                Instantiate(crossHelper, mousePos, Quaternion.identity);
+                //Instantiate(crossHelper, mousePos, Quaternion.identity);
 
                 if (hit)
                 {

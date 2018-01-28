@@ -126,30 +126,11 @@ public class UnitController : MonoBehaviour {
             MineralController mineral = other.GetComponent<MineralController>();
 
             if (mineral) {
-                extract(mineral)
+                mineral.extract();
             }
 
         }
 
-
-    }
-
-    public void extract(MineralController mineral) {
-
-        this.tt("extractMineralRoutine").Add(() => {
-
-            if (mineral.amount > 0)
-            {
-                mineral.amount--;
-                GameContext.Get.mineralAmount++;
-            }
-            else {
-
-
-
-            }
-
-        }).Add(0.3f).Repeat(); 
 
     }
 
