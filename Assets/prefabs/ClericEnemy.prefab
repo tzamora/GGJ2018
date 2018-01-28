@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1162507139910198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.507, y: -0.612, z: -0.09375}
+  m_LocalPosition: {x: -13.01, y: 6.0299997, z: -0.09375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,14 +97,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
-  power: 2
+  power: 1
   damageLabelPrefab: {fileID: 1089506703870310, guid: 674de90b51e643d4f8b3398a0e8c59c0,
     type: 2}
   unitType: 1
   highlightMaterial: {fileID: 2100000, guid: d8fc7c64c0905484388746b372551e50, type: 2}
   movementSpeed: 1
   audioWalk: {fileID: 8300000, guid: 9601b076bd864ae45b9c195f680428eb, type: 3}
-  audioAttack: {fileID: 8300000, guid: 309d0567cf8263046a550c90e154eae1, type: 3}
+  audioAttack: {fileID: 8300000, guid: a04f282319c2b974cbb241cf6af8c54d, type: 3}
 --- !u!212 &212306273796098512
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -180,7 +180,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ahora van a ver como le hacen para buscar mas cosas.
+  m_Text: "Esperamos verte pronto en una nueva aventura. \n\nMientras tanto los ciudadanos
+    en este lugar estaran concentrados en tomar medidas drasticas para las decisiones
+    adecuadas de ahora en adelante.\n\n\xA1Gracias por jugar!"
 --- !u!222 &128799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -548,7 +550,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ahora todos son unos barbaros.
+  m_Text: 'Has creado una explosion de energia gracias a la coneccion de las fuentes
+    de poder de las piedras sagradas.
+
+
+    El pueblo esta en deuda contigo.'
 --- !u!222 &1321756332
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -658,11 +664,11 @@ MonoBehaviour:
   txtB: {fileID: 2068568376}
   txtC: {fileID: 128798}
   txtColor: {r: 1, g: 1, b: 1, a: 1}
-  picColor: {r: 1, g: 0.8022313, b: 0.44852942, a: 1}
+  picColor: {r: 0.5514706, g: 0.46567386, b: 0.31222966, a: 1}
   speedSlowFade: 0.01
   speedFastFade: 0.1
   shortWait: 3
-  longWait: 9
+  longWait: 11
 --- !u!224 &1688086329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -897,7 +903,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: La barbaridad los ha hecho unos extraordinarios.
+  m_Text: 'Gracias a esto esta en camino una sociedad mas plena y armoniosa.
+
+
+    Podras ver como rinde frutos y abundancia en el futuro.'
 --- !u!222 &2068568377
 CanvasRenderer:
   m_ObjectHideFlags: 0

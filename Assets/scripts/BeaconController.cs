@@ -17,14 +17,20 @@ public class BeaconController : MonoBehaviour {
     public GameObject tilemapA;
     public GameObject tilemapB;
     public Image fadeToWhite;
+    public Text timesText;
 
     bool once=false;
 
     void Start () {
-		
-	}
-	
-	void Update () {
+
+        requiredBeacons = Random.Range(3,9);
+        timesText.text = "This time requires to activate " + requiredBeacons + " things.";
+
+        this.tt().Add(10).Add( t => Destroy(timesText) );
+
+    }
+
+    void Update () {
 
         if (allActivated == requiredBeacons)
         { once = true; }
@@ -72,7 +78,7 @@ public class BeaconController : MonoBehaviour {
         }).Add(delegate (ttHandler handler)
         {
 
-            EditorSceneManager.LoadScene("StartMenu");
+            EditorSceneManager.LoadScene("Outro");
         });
     }
 }

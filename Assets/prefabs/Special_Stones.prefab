@@ -84,6 +84,7 @@ MonoBehaviour:
   speed: 1.5
   StoneLights: {fileID: 1462370991908886, guid: 97d888ca5be294c4696fb2a7ab368e41,
     type: 2}
+  activateBeacon: {fileID: 8300000, guid: 1dea9aba549763443ae26b1571e48e94, type: 3}
 --- !u!212 &212648212140589080
 SpriteRenderer:
   m_ObjectHideFlags: 1
