@@ -18,7 +18,7 @@ public class AllySpawnerController : MonoBehaviour {
 
     public int price = 5;
 
-    public float respawnTime = 10;
+    public float cooldownTime = 10;
 
     // Use this for initialization
     void Start () {
