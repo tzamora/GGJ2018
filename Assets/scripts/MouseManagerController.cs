@@ -167,15 +167,12 @@ public class MouseManagerController : MonoBehaviour {
 
                     mousePos.z = 0;
 
-                    Cursor.visible = false;
+                   Cursor.visible = false;
 
-                    GameContext.Get.cursorHand.transform.position = mousePos;
+                    GameContext.Get.cursorHand.transform.position = mousePos + new Vector3(0.1f, -0.25f, 0.1f);
 
                 }
-                else {
-                    Cursor.visible = true;
-                    GameContext.Get.cursorHand.transform.position = new Vector3(1000f,1000f,1000f);
-                }
+                
 
                 //HoverHighlightController highlightHover = hitGameObject.GetComponent<HoverHighlightController>();
                 //HoverHighlightController backupHighlightHover = highlightHover;
@@ -189,6 +186,11 @@ public class MouseManagerController : MonoBehaviour {
                 //else {
                 //    if(backupHighlightHover) backupHighlightHover.exit();
                 //}
+            }
+            else
+            {
+                Cursor.visible = true;
+                GameContext.Get.cursorHand.transform.position = new Vector3(1000f, 1000f, 1000f);
             }
         });
     }

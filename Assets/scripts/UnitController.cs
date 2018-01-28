@@ -26,6 +26,8 @@ public class UnitController : MonoBehaviour {
 
     public AudioClip audioWalk;
 
+    public AudioClip audioAttack;
+
     bool isBusy = false;
 
     List<GameObject> debugCircles = new List<GameObject>();
@@ -53,8 +55,13 @@ public class UnitController : MonoBehaviour {
 
         SoundManager.Get.PlayClip(audioWalk, true);
 
-        this.tt("MoveUnitRoutine").Loop(delegate (ttHandler handler)
+        this.tt("MoveUnitRoutine").Reset().Loop(delegate (ttHandler handler)
         {
+            if (other != null)
+            {
+                destination = other.transform.position;
+            }
+
             Vector2 direction = (Vector2)transform.position - previousPosition;
 
             if (direction.x > 0)
@@ -113,7 +120,7 @@ public class UnitController : MonoBehaviour {
                 if (isNearEnough)
                 {
                     setAnimation.SetInteger("ani", 2);
-
+                    
                     damage(otherUnit);
 
                 }
@@ -168,9 +175,12 @@ public class UnitController : MonoBehaviour {
 
         }).Add(0.2f,()=> {
 
-            if (other != null) {
+            if (other != null)
+            {
 
                 other.hp -= this.power;
+
+                SoundManager.Get.PlayClip(audioAttack, false);
 
                 //
                 // 
@@ -182,6 +192,7 @@ public class UnitController : MonoBehaviour {
                 {
                     other.setAnimation.SetInteger("ani", 3);
                     this.setAnimation.SetInteger("ani", 0);
+                    SoundManager.Get.StopClip(audioWalk);
 
                     if (other.unitType == UnitTypeEnum.ally)
                     {
@@ -197,6 +208,17 @@ public class UnitController : MonoBehaviour {
                     Destroy(other.gameObject, 5);
                 }
 
+            }
+            else {
+                this.tt("DamageRoutine").Release();
+            }
+
+            //
+            // validate that i'm not dead
+            //
+
+            if (hp <= 0) {
+                this.tt("DamageRoutine").Release();
             }
 
         }).Repeat().Immutable();

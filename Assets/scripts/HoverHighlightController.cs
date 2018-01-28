@@ -4,27 +4,17 @@ using UnityEngine;
 
 public class HoverHighlightController : MonoBehaviour {
 
-    Material originalMaterial;
-
-    public Material highlightMaterial;
-
-    public void Start()
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+    void OnMouseEnter()
     {
-        
-        
+        print("no creo q esto funque");
+        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
     }
 
-    public void hover(Vector3 mousePosition) {
-
-        mousePosition.z = 0;
-
-        Cursor.visible = false;
-
-        GameContext.Get.cursorHand.transform.position = mousePosition;
-    }
-
-    public void exit()
+    void OnMouseExit()
     {
-        Cursor.visible = true;
+        Cursor.SetCursor(null, Vector2.zero, cursorMode);
     }
 }

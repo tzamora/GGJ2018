@@ -155,6 +155,7 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
   movementSpeed: 1.6
   audioWalk: {fileID: 8300000, guid: 9601b076bd864ae45b9c195f680428eb, type: 3}
+  audioAttack: {fileID: 8300000, guid: 309d0567cf8263046a550c90e154eae1, type: 3}
 --- !u!212 &212627892060739882
 SpriteRenderer:
   m_ObjectHideFlags: 1
