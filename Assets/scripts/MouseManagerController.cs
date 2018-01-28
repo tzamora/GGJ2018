@@ -79,7 +79,7 @@ public class MouseManagerController : MonoBehaviour {
                 Instantiate(crossHelper, new Vector3(ray.origin.x, ray.origin.y, 0), Quaternion.identity);
 
                 //
-                // no get the mousePos
+                // now get the mousePos
                 //
 
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -136,4 +136,28 @@ public class MouseManagerController : MonoBehaviour {
         });
 
 	}
+
+    void MouseOverHighlight() {
+
+        this.tt("HoverHighlightRoutine").Loop((handler) => {
+
+            //
+            // now get the mousePos
+            //
+
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            GameObject hitGameObject = null;
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (hit)
+            {
+                hitGameObject = hit.transform.gameObject;
+
+            }
+
+        });
+
+    }
 }
