@@ -6,15 +6,19 @@ using matnesis.TeaTime;
 
 public class UICanvasController : MonoBehaviour {
 
-    public Text mineralAmountText;
+    public Text allyMineralAmountText;
 
-	// Use this for initialization
+    public Text enemyMineralAmountText;
 
-	void Start () {
+    // Use this for initialization
+
+    void Start () {
 
         this.tt("updateMineralAmount").Add((handler)=> {
             
-            mineralAmountText.text = GameContext.Get.allyMineralAmount + "";
+            allyMineralAmountText.text = GameContext.Get.allyMineralAmount + "";
+
+            enemyMineralAmountText.text = GameContext.Get.enemyMineralAmount + "";
 
         }).Add(0.5f).Repeat();
 

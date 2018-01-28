@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1939250618732824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.93, y: -1.54, z: 0}
+  m_LocalPosition: {x: -6.93, y: -1.54, z: -5.600886}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,7 +122,8 @@ MonoBehaviour:
   damageLabelPrefab: {fileID: 1089506703870310, guid: 674de90b51e643d4f8b3398a0e8c59c0,
     type: 2}
   unitType: 1
-  highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
+  range: 10
+  highlightMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   movementSpeed: 1
   audioWalk: {fileID: 8300000, guid: 9601b076bd864ae45b9c195f680428eb, type: 3}
   audioAttack: {fileID: 8300000, guid: a04f282319c2b974cbb241cf6af8c54d, type: 3}
@@ -162,7 +163,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 11d3b6cb5f2dca74f8158f63c1211d0c, type: 3}
-  m_Color: {r: 0.13235295, g: 0.56916815, b: 1, a: 0.484}
+  m_Color: {r: 1, g: 0.88965535, b: 0, a: 0.703}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

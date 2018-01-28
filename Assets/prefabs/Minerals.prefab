@@ -93,13 +93,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1873583050644812}
-<<<<<<< HEAD
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.445464, y: 10.458191, z: 6.651367}
-=======
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.7, y: 3.08, z: 9.674805}
->>>>>>> master
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4485366027862680}
@@ -162,11 +157,8 @@ MonoBehaviour:
   emptySprite: {fileID: 212221902567907590}
   extractTime: 1
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
-<<<<<<< HEAD
   extractSound: {fileID: 8300000, guid: 0a700774d6f6d9b41b5033b08b4828c3, type: 3}
-=======
   isDepleted: 0
->>>>>>> master
 --- !u!212 &212221902567907590
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -210,7 +202,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
 --- !u!212 &212301551751533242
 SpriteRenderer:
   m_ObjectHideFlags: 1

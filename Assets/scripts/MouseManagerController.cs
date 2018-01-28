@@ -168,8 +168,6 @@ public class MouseManagerController : MonoBehaviour {
 
             if (hit)
             {
-                print("pegamos");
-
                 hitGameObject = hit.transform.gameObject;
 
                 if (hitGameObject.tag == "hover")

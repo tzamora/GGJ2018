@@ -121,7 +121,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1652230174713898}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2, y: 11.5, z: -4.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -175,8 +175,15 @@ MonoBehaviour:
     type: 2}
   AnimalPrefab: {fileID: 1939250618732824, guid: 21d2c202a62b4704c845e89e906fb35d,
     type: 2}
+  ClericEnemyPrefab: {fileID: 1162507139910198, guid: 8a9fef9217f6bab4ba526b16fc9c69d0,
+    type: 2}
+  GhostEnemyPrefab: {fileID: 1936873597529680, guid: 6c92b4b2f699f914592c1ad91b32325a,
+    type: 2}
+  AnimalEnemyPrefab: {fileID: 1939250618732824, guid: 8f08acb9fcfd51241a957f3aebc36b7f,
+    type: 2}
   price: 5
-  cooldownTime: 10
+  readyToUse: 0
+  cooldownTime: 15
 --- !u!212 &212062014973396440
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -220,7 +227,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
 --- !u!212 &212422160480315602
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -264,7 +271,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
 --- !u!212 &212446201624242408
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -308,4 +315,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1

@@ -16,6 +16,8 @@ public class UnitController : MonoBehaviour {
 
     public UnitTypeEnum unitType;
 
+    public float range;
+
     Material originalMaterial;
 
     public Material highlightMaterial;
@@ -29,6 +31,7 @@ public class UnitController : MonoBehaviour {
     public AudioClip audioAttack;
 
     public bool isBusy = false;
+
 
     List<GameObject> debugCircles = new List<GameObject>();
 
@@ -76,7 +79,6 @@ public class UnitController : MonoBehaviour {
         {
             if (other != null)
             {
-                print(other.transform.position);
                 destination = other.transform.position;
             }
 
@@ -302,7 +304,7 @@ public class UnitController : MonoBehaviour {
 
         this.tt("CheckAllyNearRoutine").Add(()=> {
 
-            List<Collider2D> colliders = Physics2D.OverlapCircleAll(transform.position, 5f).ToList();
+            List<Collider2D> colliders = Physics2D.OverlapCircleAll(transform.position, range).ToList();
 
             colliders = colliders.OrderBy(
                 x => Vector2.Distance(this.transform.position, x.transform.position)
