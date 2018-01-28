@@ -32,7 +32,17 @@ public class MineralController : MonoBehaviour {
             if (amount > 0)
             {
                 amount--;
-                GameContext.Get.mineralAmount++;
+
+                if (unit.unitType == UnitController.UnitTypeEnum.ally)
+                {
+                    GameContext.Get.allyMineralAmount++;
+                }
+                else
+                {
+                    GameContext.Get.enemyMineralAmount++;
+                }
+
+                GameContext.Get.allyMineralAmount++;
             }
             else
             {

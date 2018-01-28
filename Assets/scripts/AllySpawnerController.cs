@@ -42,21 +42,21 @@ public class AllySpawnerController : MonoBehaviour {
 
     public void spawnAlly(UnitController parentUnit) {
 
-        int availableMineral = GameContext.Get.mineralAmount;
-
-        if (availableMineral < price)
-        {
-
-            // TODO: mensaje de error
-
-
-            return;
-        }
-
         GameObject unitPrefab = null;
 
         if (parentUnit.unitType == UnitController.UnitTypeEnum.ally)
         {
+            int availableMineral = GameContext.Get.allyMineralAmount;
+
+            if (availableMineral < price)
+            {
+
+                parentUnit.isBusy = false;
+
+
+                return;
+            }
+
             switch (AllyType)
             {
                 case AllyTypeEnum.Animal:
@@ -75,9 +75,22 @@ public class AllySpawnerController : MonoBehaviour {
             newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.ally;
 
             GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
+
+            GameContext.Get.allyMineralAmount -= price;
         }
         else
         {
+            int availableMineral = GameContext.Get.enemyMineralAmount;
+
+            if (availableMineral < price)
+            {
+
+                // TODO: mensaje de error
+                readyToUse = false;
+                parentUnit.isBusy = false;
+
+                return;
+            }
 
             switch (AllyType)
             {
@@ -97,9 +110,12 @@ public class AllySpawnerController : MonoBehaviour {
             newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.enemy;
 
             GameContext.Get.enemyUnits.Add(newAlly.GetComponent<UnitController>());
+
+            GameContext.Get.enemyMineralAmount -= price;
         }
         
         readyToUse = false;
+        parentUnit.isBusy = false;
 
     }
 

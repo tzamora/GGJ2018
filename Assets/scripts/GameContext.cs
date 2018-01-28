@@ -18,7 +18,9 @@ public class GameContext : MonoSingleton<GameContext> {
 
     public SpriteRenderer cursorHand;
 
-    public int mineralAmount;
+    public int allyMineralAmount;
+
+    public int enemyMineralAmount;
 
     void Start()
 	{
