@@ -17,18 +17,13 @@ public class MineralController : MonoBehaviour {
 
     public Material highlightMaterial;
 
-<<<<<<< HEAD
     public AudioClip extractSound;
 
-    public void extract() {
-=======
     public bool isDepleted = false;
 
     public AudioClip minning;
 
     public void extract(UnitController unit) {
-
->>>>>>> master
 
         Renderer renderer = GetComponent<Renderer>();
 

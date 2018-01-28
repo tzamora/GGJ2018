@@ -113,6 +113,16 @@ public class MouseManagerController : MonoBehaviour {
 
             }
 
+            if (Input.GetMouseButton(0)) {
+
+                foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
+
+                    unit.resetRoutine();
+
+                }
+
+            }
+
         });
     }
 

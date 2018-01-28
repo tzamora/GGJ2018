@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 using matnesis.TeaTime;
+using UnityEngine.SceneManagement;
 
 public class BeaconController : MonoBehaviour {
 
@@ -78,8 +78,7 @@ public class BeaconController : MonoBehaviour {
 
         }).Add(delegate (ttHandler handler)
         {
-
-            EditorSceneManager.LoadScene("Outro");
+            SceneManager.LoadScene("Outro");
         });
     }
 }

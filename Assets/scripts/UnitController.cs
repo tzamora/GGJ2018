@@ -35,6 +35,15 @@ public class UnitController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        if (this.unitType == UnitTypeEnum.ally)
+        {
+            GameContext.Get.allyUnits.Add(this);
+        }
+        else
+        {
+            GameContext.Get.enemyUnits.Add(this);
+        }
+
         setAnimation = GetComponent<Animator>();
 
         debugCircles.Add(this.gameObject);
@@ -48,6 +57,12 @@ public class UnitController : MonoBehaviour {
             EnemyAIRoutine();
 
         }
+
+    }
+
+    public void resetRoutine() {
+
+        this.tt("MoveUnitRoutine").Reset().Release();
 
     }
 
