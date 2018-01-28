@@ -60,13 +60,13 @@ public class MouseCameraMove : MonoBehaviour {
         if (Input.GetMouseButton(2))
         {
 
-            if (Input.GetAxis("Mouse X") < -0.1f)
+            if (Input.GetAxis("Mouse X") > -0.1f && !maximumX)
                 transform.Translate(speedButton, 0, 0);
-            if (Input.GetAxis("Mouse X") > 0.1f)
+            if (Input.GetAxis("Mouse X") < 0.1f && !minimumX)
                 transform.Translate(-speedButton, 0, 0);
-            if (Input.GetAxis("Mouse Y") < -0.1f)
+            if (Input.GetAxis("Mouse Y") > -0.1f && !maximumY)
                 transform.Translate(0, speedButton, 0);
-            if (Input.GetAxis("Mouse Y") > 0.1f)
+            if (Input.GetAxis("Mouse Y") < 0.1f && !minimumY)
                 transform.Translate(0, -speedButton, 0);
         }
 

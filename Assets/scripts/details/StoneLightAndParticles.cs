@@ -7,22 +7,37 @@ public class StoneLightAndParticles : MonoBehaviour {
 
     public Color publicColorA = Color.red;
     public Color publicColorB = Color.blue;
-    public Color publicColorC = Color.green;
     public float duration = 6;
     public float speed= 0.5f;
     SpriteRenderer colorComponent;
     public GameObject StoneLights;
+    bool activated = false;
 
 	void Start () {
 
         colorComponent = GetComponent<SpriteRenderer>();
-        Animation();
 
     }
 
 
+    public void OnTriggerEnter2D (Collider2D other)
+    {
+        var ally = other.GetComponent<UnitController>();
 
-    void Animation()
+        if (ally && !activated)
+
+            if (ally.unitType == UnitController.UnitTypeEnum.ally)
+            {
+                print("ha entrado una vez");
+                activated = true;
+                BeaconController.allActivated++;
+                Animation();
+            }
+
+    }
+
+
+    public void Animation()
     {
 
         Instantiate(StoneLights, transform.localPosition, Quaternion.identity);
@@ -37,17 +52,6 @@ public class StoneLightAndParticles : MonoBehaviour {
 
             colorComponent.color = Color.Lerp(colorComponent.color, publicColorB, speed * Time.deltaTime);
 
-        }).Loop(duration, delegate (ttHandler handler)
-        {
-
-            colorComponent.color = Color.Lerp(colorComponent.color, publicColorC, speed * Time.deltaTime);
-
-        }).Loop(duration, delegate (ttHandler handler)
-        {
-
-            // GET CAMERA CANVAS TEXTURE AND GET COLOR ALPHA FROM 0 TO 255
-
-        });
-
+        }).Repeat();
     }
 }
