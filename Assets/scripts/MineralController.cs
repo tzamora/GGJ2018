@@ -17,6 +17,8 @@ public class MineralController : MonoBehaviour {
 
     public Material highlightMaterial;
 
+    public AudioClip extractSound;
+
     public bool isDepleted = false;
 
     public AudioClip minning;
@@ -32,8 +34,11 @@ public class MineralController : MonoBehaviour {
 
         this.tt("extractMineralRoutine").Add(() => {
 
+
             if (amount > 0)
             {
+                SoundManager.Get.PlayClip(extractSound, false);
+
                 amount--;
 
                 SoundManager.Get.PlayClip(minning, false);
@@ -46,8 +51,6 @@ public class MineralController : MonoBehaviour {
                 {
                     GameContext.Get.enemyMineralAmount++;
                 }
-
-                GameContext.Get.allyMineralAmount++;
             }
             else
             {

@@ -113,6 +113,16 @@ public class MouseManagerController : MonoBehaviour {
 
             }
 
+            if (Input.GetMouseButton(0)) {
+
+                foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
+
+                    unit.resetRoutine();
+
+                }
+
+            }
+
         });
     }
 
@@ -158,8 +168,6 @@ public class MouseManagerController : MonoBehaviour {
 
             if (hit)
             {
-                print("pegamos");
-
                 hitGameObject = hit.transform.gameObject;
 
                 if (hitGameObject.tag == "hover")

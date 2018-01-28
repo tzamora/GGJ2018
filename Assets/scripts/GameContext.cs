@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using matnesis.TeaTime;
+using UnityEngine.SceneManagement;
 
 public class GameContext : MonoSingleton<GameContext> {
 
@@ -26,6 +27,19 @@ public class GameContext : MonoSingleton<GameContext> {
 	{
 		
 		SoundManager.Get.PlayClip (BackgroundSound, true);
+
+        this.tt("GameOverRoutine").Add(5).Loop((handler)=> {
+
+            if (GameContext.Get.allyUnits.Count <= 0) {
+
+
+                SceneManager.LoadScene("GameOver");
+                // todo
+
+
+            }
+
+        });
 	
 	}
 

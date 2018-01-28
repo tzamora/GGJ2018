@@ -35,6 +35,15 @@ public class UnitController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        if (this.unitType == UnitTypeEnum.ally)
+        {
+            GameContext.Get.allyUnits.Add(this);
+        }
+        else
+        {
+            GameContext.Get.enemyUnits.Add(this);
+        }
+
         setAnimation = GetComponent<Animator>();
 
         debugCircles.Add(this.gameObject);
@@ -51,6 +60,12 @@ public class UnitController : MonoBehaviour {
 
     }
 
+    public void resetRoutine() {
+
+        this.tt("MoveUnitRoutine").Reset().Release();
+
+    }
+
     public void MoveRoutine(Vector2 destination, GameObject other) {
 
         Vector2 previousPosition = Vector3.zero;
@@ -61,7 +76,6 @@ public class UnitController : MonoBehaviour {
         {
             if (other != null)
             {
-                print(other.transform.position);
                 destination = other.transform.position;
             }
 

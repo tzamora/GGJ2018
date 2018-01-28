@@ -74,7 +74,7 @@ public class AllySpawnerController : MonoBehaviour {
             
             newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.ally;
 
-            GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
+            //GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
 
             GameContext.Get.allyMineralAmount -= price;
         }
@@ -109,7 +109,7 @@ public class AllySpawnerController : MonoBehaviour {
 
             newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.enemy;
 
-            GameContext.Get.enemyUnits.Add(newAlly.GetComponent<UnitController>());
+            //GameContext.Get.enemyUnits.Add(newAlly.GetComponent<UnitController>());
 
             GameContext.Get.enemyMineralAmount -= price;
         }
