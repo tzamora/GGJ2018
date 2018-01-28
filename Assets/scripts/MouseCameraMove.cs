@@ -24,6 +24,10 @@ public class MouseCameraMove : MonoBehaviour {
 
     void Update () {
 
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            return;
+        }
+
         x = Input.mousePosition.x;
         y = Input.mousePosition.y;
 

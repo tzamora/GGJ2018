@@ -46,8 +46,6 @@ public class MineralController : MonoBehaviour {
                 {
                     GameContext.Get.enemyMineralAmount++;
                 }
-
-                GameContext.Get.allyMineralAmount++;
             }
             else
             {
