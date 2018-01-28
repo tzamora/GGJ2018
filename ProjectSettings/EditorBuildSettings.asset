@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PlayLevel.unity
     guid: deb397885e3997b4998f2e1942a86026
+  - enabled: 1
+    path: Assets/Intro.unity
+    guid: a0c7c39e0528eb540b3517a93fdc8dfd
