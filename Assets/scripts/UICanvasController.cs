@@ -14,7 +14,7 @@ public class UICanvasController : MonoBehaviour {
 
         this.tt("updateMineralAmount").Add((handler)=> {
             
-            mineralAmountText.text = GameContext.Get.mineralAmount + "";
+            mineralAmountText.text = GameContext.Get.allyMineralAmount + "";
 
         }).Add(0.5f).Repeat();
 

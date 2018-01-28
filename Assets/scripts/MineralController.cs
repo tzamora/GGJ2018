@@ -17,9 +17,18 @@ public class MineralController : MonoBehaviour {
 
     public Material highlightMaterial;
 
+<<<<<<< HEAD
     public AudioClip extractSound;
 
     public void extract() {
+=======
+    public bool isDepleted = false;
+
+    public AudioClip minning;
+
+    public void extract(UnitController unit) {
+
+>>>>>>> master
 
         Renderer renderer = GetComponent<Renderer>();
 
@@ -35,11 +44,26 @@ public class MineralController : MonoBehaviour {
                 SoundManager.Get.PlayClip(extractSound, false);
 
                 amount--;
-                GameContext.Get.mineralAmount++;
+
+                SoundManager.Get.PlayClip(minning, false);
+
+                if (unit.unitType == UnitController.UnitTypeEnum.ally)
+                {
+                    GameContext.Get.allyMineralAmount++;
+                }
+                else
+                {
+                    GameContext.Get.enemyMineralAmount++;
+                }
+
+                GameContext.Get.allyMineralAmount++;
             }
             else
             {
                 filledSprite.gameObject.SetActive(false);
+                isDepleted = true;
+                unit.isBusy = false;
+                this.tt("extractMineralRoutine").Release();
             }
 
         }).Add(extractTime).Repeat();

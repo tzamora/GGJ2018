@@ -28,7 +28,7 @@ public class UnitController : MonoBehaviour {
 
     public AudioClip audioAttack;
 
-    bool isBusy = false;
+    public bool isBusy = false;
 
     List<GameObject> debugCircles = new List<GameObject>();
 
@@ -37,13 +37,15 @@ public class UnitController : MonoBehaviour {
 
         setAnimation = GetComponent<Animator>();
 
+        debugCircles.Add(this.gameObject);
+
         //
         // run enemy AI
         //
 
         if (unitType == UnitTypeEnum.enemy) {
 
-            CheckAllyNearRoutine();
+            EnemyAIRoutine();
 
         }
 
@@ -59,6 +61,7 @@ public class UnitController : MonoBehaviour {
         {
             if (other != null)
             {
+                print(other.transform.position);
                 destination = other.transform.position;
             }
 
@@ -73,8 +76,6 @@ public class UnitController : MonoBehaviour {
             {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
-
-            //Sound.get.playclip(audioclip, loop ? true;
 
             previousPosition = transform.position;
 
@@ -134,18 +135,18 @@ public class UnitController : MonoBehaviour {
 
             MineralController mineral = other.GetComponent<MineralController>();
 
-            if (mineral)
+            if (mineral && !mineral.isDepleted)
             {
-                mineral.extract();
+                mineral.extract(this);
             }
             else
             {
 
                 AllySpawnerController allySpawner = other.GetComponent<AllySpawnerController>();
 
-                if (allySpawner) {
+                if (allySpawner && allySpawner.readyToUse) {
 
-                    allySpawner.trySpawn();
+                    allySpawner.spawnAlly(this);
 
                 }
             }
@@ -282,7 +283,7 @@ public class UnitController : MonoBehaviour {
 
     }
 
-    void CheckAllyNearRoutine() {
+    void EnemyAIRoutine() {
 
         this.tt("CheckAllyNearRoutine").Add(()=> {
 
@@ -293,35 +294,70 @@ public class UnitController : MonoBehaviour {
             ).ToList();
 
             foreach (Collider2D collider in colliders) {
-
+                
                 UnitController unit = collider.GetComponent<UnitController>();
 
-                if (unit && unit.unitType == UnitTypeEnum.ally && unit.hp > 0) {
+                if (!isBusy)
+                {
+                    if (unit && unit.unitType == UnitTypeEnum.ally && unit.hp > 0)
+                    {
 
-                    //break;
-
-                    //debugCircles.Add(unit.gameObject);
-
-                    if (!isBusy) {
 
                         isBusy = true;
 
                         MoveRoutine(unit.transform.position, unit.gameObject);
+
+                        break;
+
+
                     }
+                    else
+                    {
 
+                        MineralController mineral = collider.GetComponent<MineralController>();
+
+                        if (mineral && !mineral.isDepleted)
+                        {
+
+                            isBusy = true;
+
+                            MoveRoutine(mineral.transform.position, mineral.gameObject);
+
+                            break;
+
+                        }
+                        else
+                        {
+
+                            AllySpawnerController allySpawner = collider.GetComponent<AllySpawnerController>();
+
+                            if (allySpawner && allySpawner.readyToUse)
+                            {
+
+
+                                isBusy = true;
+
+                                MoveRoutine(allySpawner.transform.position, allySpawner.gameObject);
+
+                                break;
+
+
+                            }
+                        }
+
+                    }
                 }
-
             }
 
         }).Add(1).Repeat();
 
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.white;
-    //    foreach (var circle in debugCircles) {
-    //        Gizmos.DrawWireSphere(circle.transform.position, 1f);
-    //    }
-    //}
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        foreach (var circle in debugCircles) {
+            Gizmos.DrawWireSphere(circle.transform.position, 5f);
+        }
+    }
 }

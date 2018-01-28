@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using matnesis.TeaTime;
 
 public class AllySpawnerController : MonoBehaviour {
 
@@ -16,61 +17,114 @@ public class AllySpawnerController : MonoBehaviour {
 
     public GameObject AnimalPrefab;
 
+    public GameObject ClericEnemyPrefab;
+
+    public GameObject GhostEnemyPrefab;
+
+    public GameObject AnimalEnemyPrefab;
+
+
     public int price = 5;
+
+    public bool readyToUse = false;
 
     public float cooldownTime = 10;
 
     // Use this for initialization
     void Start () {
-        activateSpawner();
+
+        this.tt("spawnerRoutine").Add(() =>
+        {
+            readyToUse = true;
+
+        }).Add(cooldownTime).Repeat();
 	}
 
-    public static int counter = 0;
+    public void spawnAlly(UnitController parentUnit) {
 
-    void activateSpawner() {
+        GameObject unitPrefab = null;
 
-        GameObject newAlly = GameObject.Instantiate(ClericPrefab, spawnPosition.position, Quaternion.identity);
-        newAlly.name = newAlly.name + counter++;
-        GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
+        if (parentUnit.unitType == UnitController.UnitTypeEnum.ally)
+        {
+            int availableMineral = GameContext.Get.allyMineralAmount;
 
-    }
+            if (availableMineral < price)
+            {
 
-    void spawnAlly(GameObject allyPrefab)
-    {
+                parentUnit.isBusy = false;
 
-        GameObject newAlly = GameObject.Instantiate(allyPrefab, spawnPosition.position, Quaternion.identity);
+
+                return;
+            }
+
+            switch (AllyType)
+            {
+                case AllyTypeEnum.Animal:
+                    unitPrefab = AnimalPrefab;
+                    break;
+                case AllyTypeEnum.ghost:
+                    unitPrefab = GhostPrefab;
+                    break;
+                case AllyTypeEnum.Cleric:
+                    unitPrefab = ClericPrefab;
+                    break;
+            }
+
+            GameObject newAlly = GameObject.Instantiate(unitPrefab, spawnPosition.position, Quaternion.identity);
+            
+            newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.ally;
+
+            GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
+
+            GameContext.Get.allyMineralAmount -= price;
+        }
+        else
+        {
+            int availableMineral = GameContext.Get.enemyMineralAmount;
+
+            if (availableMineral < price)
+            {
+
+                // TODO: mensaje de error
+                readyToUse = false;
+                parentUnit.isBusy = false;
+
+                return;
+            }
+
+            switch (AllyType)
+            {
+                case AllyTypeEnum.Animal:
+                    unitPrefab = AnimalEnemyPrefab;
+                    break;
+                case AllyTypeEnum.ghost:
+                    unitPrefab = GhostEnemyPrefab;
+                    break;
+                case AllyTypeEnum.Cleric:
+                    unitPrefab = ClericEnemyPrefab;
+                    break;
+            }
+
+            GameObject newAlly = GameObject.Instantiate(unitPrefab, spawnPosition.position, Quaternion.identity);
+
+            newAlly.GetComponent<UnitController>().unitType = UnitController.UnitTypeEnum.enemy;
+
+            GameContext.Get.enemyUnits.Add(newAlly.GetComponent<UnitController>());
+
+            GameContext.Get.enemyMineralAmount -= price;
+        }
         
-        GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
+        readyToUse = false;
+        parentUnit.isBusy = false;
 
     }
 
-    public void trySpawn() {
+    //void spawnAlly(GameObject allyPrefab)
+    //{
 
-        int availableMineral = GameContext.Get.mineralAmount;
+    //    GameObject newAlly = GameObject.Instantiate(allyPrefab, spawnPosition.position, Quaternion.identity);
+        
+    //    GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
 
-        if (availableMineral < price) {
-
-            // TODO: mensaje de error
-
-
-            return;
-        }
-
-        GameObject allyPrefab = null;
-
-        switch (AllyType) {
-            case AllyTypeEnum.Animal:
-                allyPrefab = AnimalPrefab;
-            break;
-            case AllyTypeEnum.ghost:
-                allyPrefab = GhostPrefab;
-                break;
-            case AllyTypeEnum.Cleric:
-                allyPrefab = ClericPrefab;
-                break;
-        }
-        spawnAlly(allyPrefab);
-
-
-    }
+    //}
 }

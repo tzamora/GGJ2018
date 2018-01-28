@@ -9,7 +9,6 @@ public class HoverHighlightController : MonoBehaviour {
     public Vector2 hotSpot = Vector2.zero;
     void OnMouseEnter()
     {
-        print("no creo q esto funque");
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
     }
 

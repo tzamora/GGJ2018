@@ -12,9 +12,14 @@ public class StoneLightAndParticles : MonoBehaviour {
     SpriteRenderer colorComponent;
     public GameObject StoneLights;
     bool activated = false;
+<<<<<<< HEAD
     public AudioClip activateBeacon;
 
 
+=======
+    public AudioClip beaconSound;
+
+>>>>>>> master
     void Start () {
 
         colorComponent = GetComponent<SpriteRenderer>();
@@ -33,6 +38,7 @@ public class StoneLightAndParticles : MonoBehaviour {
                 SoundManager.Get.PlayClip(activateBeacon, false);
                 print("ha entrado una vez");
                 activated = true;
+                SoundManager.Get.PlayClip(beaconSound, false);
                 BeaconController.allActivated++;
                 Animation();
             }
