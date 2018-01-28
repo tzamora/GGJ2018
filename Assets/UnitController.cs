@@ -73,6 +73,8 @@ public class UnitController : MonoBehaviour {
 
             if (transform.position == (Vector3)destination)
             {
+                setAnimation.SetInteger("ani", 0);
+
                 handleAction(other);
 
                 handler.EndLoop();
@@ -190,7 +192,11 @@ public class UnitController : MonoBehaviour {
 
     public void showDamageLabel(int amount) {
 
-
+        if (!transform)
+        {
+            return;
+        }
+        
         Vector3 labelPosition = transform.position + new Vector3(0, 0.7f, 0);
 
         GameObject damageLabel = GameObject.Instantiate(damageLabelPrefab, labelPosition, Quaternion.identity);

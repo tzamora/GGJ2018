@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114702150498129878}
   - component: {fileID: 61154424209005266}
   m_Layer: 0
-  m_Name: ClericEnemy
+  m_Name: CLERICENEMY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
