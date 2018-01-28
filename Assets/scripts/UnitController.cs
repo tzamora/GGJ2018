@@ -24,6 +24,8 @@ public class UnitController : MonoBehaviour {
     
     Animator setAnimation;
 
+    public AudioClip audioWalk;
+
     bool isBusy = false;
 
     List<GameObject> debugCircles = new List<GameObject>();
@@ -49,6 +51,8 @@ public class UnitController : MonoBehaviour {
 
         Vector2 previousPosition = Vector3.zero;
 
+        SoundManager.Get.PlayClip(audioWalk, true);
+
         this.tt("MoveUnitRoutine").Loop(delegate (ttHandler handler)
         {
             print("estoy aqui pegadito");
@@ -65,6 +69,8 @@ public class UnitController : MonoBehaviour {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
 
+            //Sound.get.playclip(audioclip, loop ? true;
+
             previousPosition = transform.position;
 
             setAnimation.SetInteger("ani", 1);
@@ -76,6 +82,8 @@ public class UnitController : MonoBehaviour {
                 setAnimation.SetInteger("ani", 0);
 
                 handleAction(other);
+
+                SoundManager.Get.StopClip(audioWalk);
 
                 handler.EndLoop();
             }

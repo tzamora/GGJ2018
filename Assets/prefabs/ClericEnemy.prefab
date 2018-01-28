@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114702150498129878}
   - component: {fileID: 61154424209005266}
   m_Layer: 0
-  m_Name: CLERICENEMY
+  m_Name: ClericEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   unitType: 1
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
   movementSpeed: 1
+  audioWalk: {fileID: 8300000, guid: 9601b076bd864ae45b9c195f680428eb, type: 3}
 --- !u!212 &212306273796098512
 SpriteRenderer:
   m_ObjectHideFlags: 1
