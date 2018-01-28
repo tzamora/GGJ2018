@@ -25,8 +25,13 @@ GameObject:
   - component: {fileID: 61564296273007740}
   - component: {fileID: 50560738875929880}
   m_Layer: 0
+<<<<<<< HEAD
   m_Name: AnimalEnemy
   m_TagString: Untagged
+=======
+  m_Name: ANIMALENEMY
+  m_TagString: hover
+>>>>>>> 4285883ff3ebecd11d9998327f4cba527cd415ce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

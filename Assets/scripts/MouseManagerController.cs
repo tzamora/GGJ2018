@@ -20,7 +20,9 @@ public class MouseManagerController : MonoBehaviour {
 
         MouseClickHandlerRoutine();
 
-	}
+        MouseOverHighlight();
+        
+    }
 
     void OnGUI()
     {
@@ -41,7 +43,7 @@ public class MouseManagerController : MonoBehaviour {
             //
 
             List<UnitController> allUnits = new List<UnitController>();
-            
+
             allUnits.AddRange(GameContext.Get.allyUnits);
 
             allUnits.AddRange(GameContext.Get.enemyUnits);
@@ -52,15 +54,19 @@ public class MouseManagerController : MonoBehaviour {
 
             foreach (UnitController unit in allUnits)
             {
+                if (unit == null) {
+                    continue;
+                }
+
                 Vector2 screenPosition = Camera.main.WorldToScreenPoint(unit.transform.localPosition);
 
                 screenPosition.y = Screen.height - screenPosition.y;
 
                 if (rect.Contains(screenPosition))
                 {
-                    unit.GetComponent<UnitController>().select();
+                    unit.select();
                 }
-                
+
             }
         };
     }
@@ -113,7 +119,6 @@ public class MouseManagerController : MonoBehaviour {
     void MouseDragHandlerRoutine() {
 
         this.tt().Loop((handler) => {
-
             // Called while the user is holding the mouse down.
             if (Input.GetKey(KeyCode.Mouse0))
             {
@@ -136,7 +141,7 @@ public class MouseManagerController : MonoBehaviour {
         });
 
 	}
-
+     
     void MouseOverHighlight() {
 
         this.tt("HoverHighlightRoutine").Loop((handler) => {
@@ -153,11 +158,38 @@ public class MouseManagerController : MonoBehaviour {
 
             if (hit)
             {
+                print("pegamos");
+
                 hitGameObject = hit.transform.gameObject;
 
+                if (hitGameObject.tag == "hover")
+                {
+
+                    mousePos.z = 0;
+
+                    Cursor.visible = false;
+
+                    GameContext.Get.cursorHand.transform.position = mousePos;
+
+                }
+                else {
+                    Cursor.visible = true;
+                    GameContext.Get.cursorHand.transform.position = new Vector3(1000f,1000f,1000f);
+                }
+
+                //HoverHighlightController highlightHover = hitGameObject.GetComponent<HoverHighlightController>();
+                //HoverHighlightController backupHighlightHover = highlightHover;
+                ////
+                //// esto se va a llamar como loco
+                ////
+                //if (highlightHover)
+                //{
+                //    highlightHover.hover(mousePos);
+                //}
+                //else {
+                //    if(backupHighlightHover) backupHighlightHover.exit();
+                //}
             }
-
         });
-
     }
 }
