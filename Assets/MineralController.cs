@@ -11,6 +11,8 @@ public class MineralController : MonoBehaviour {
 
     public SpriteRenderer emptySprite;
 
+    public float extractTime = 0.3f;
+
     Material originalMaterial;
 
     public Material highlightMaterial;
@@ -35,7 +37,7 @@ public class MineralController : MonoBehaviour {
                 filledSprite.gameObject.SetActive(false);
             }
 
-        }).Add(0.3f).Repeat();
+        }).Add(extractTime).Repeat();
 
     }
 }

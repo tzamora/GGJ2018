@@ -179,6 +179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 10
   power: 2
+  damageLabelPrefab: {fileID: 1089506703870310, guid: 674de90b51e643d4f8b3398a0e8c59c0,
+    type: 2}
   unitType: 0
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
   movementSpeed: 2
