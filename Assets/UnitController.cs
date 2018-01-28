@@ -31,6 +31,10 @@ public class UnitController : MonoBehaviour {
 
         setAnimation = GetComponent<Animator>();
 
+        //
+        // run enemy AI
+        //
+
         if (unitType == UnitTypeEnum.enemy) {
 
             CheckAllyNearRoutine();
@@ -39,16 +43,13 @@ public class UnitController : MonoBehaviour {
 
     }
 
-    public void action(Vector2 destination, GameObject other) {
-
-        //destination = Camera.main.ScreenToWorldPoint(destination);
-        //destination.y = Screen.height - destination.y;
+    public void MoveRoutine(Vector2 destination, GameObject other) {
 
         Vector2 previousPosition = Vector3.zero;
 
-        this.tt("MoveRoutine").Reset().Loop((handler) => {
-
-            isBusy = true;
+        this.tt("MoveUnitRoutine").Loop(delegate (ttHandler handler)
+        {
+            print("estoy aqui pegadito");
 
             Vector2 direction = (Vector2)transform.position - previousPosition;
 
@@ -79,7 +80,7 @@ public class UnitController : MonoBehaviour {
 
     }
 
-    void handleAction(GameObject other) {
+    public void handleAction(GameObject other) {
 
         if (!other) {
             return;
@@ -89,6 +90,8 @@ public class UnitController : MonoBehaviour {
 
         if (otherUnit)
         {
+            print("atacando: " + otherUnit);
+
             //
             // stop friendly attacks
             //
@@ -97,27 +100,43 @@ public class UnitController : MonoBehaviour {
             {
                 float distance = Vector3.Distance(this.transform.position, otherUnit.transform.position);
 
-                print(distance);
-
                 bool isNearEnough = distance <= 1;
 
                 if (isNearEnough)
                 {
-
                     setAnimation.SetInteger("ani", 2);
+
                     damage(otherUnit);
 
                 }
                 else
                 {
-
-                    this.action(otherUnit.transform.position, otherUnit.gameObject);
-
+                    MoveRoutine(otherUnit.transform.position, otherUnit.gameObject);
                 }
-
-                
             }
         }
+        else {
+
+            MineralController mineral = other.GetComponent<MineralController>();
+
+            if (mineral)
+            {
+                mineral.extract();
+            }
+            else
+            {
+
+                AllySpawnerController allySpawner = other.GetComponent<AllySpawnerController>();
+
+                if (allySpawner) {
+
+                    allySpawner.trySpawn();
+
+                }
+            }
+
+        }
+
 
     }
 
@@ -127,7 +146,7 @@ public class UnitController : MonoBehaviour {
 
         Color defaultColor = enemyRenderer.material.color;
 
-        this.tt().Add(0.2f, handler => {
+        this.tt("DamageRoutine").Add(0.2f, handler => {
              
             if(enemyRenderer) enemyRenderer.material.color = Color.red;
 
@@ -135,13 +154,14 @@ public class UnitController : MonoBehaviour {
 
             if (enemyRenderer) enemyRenderer.material.color = defaultColor;
 
-        }).Add(()=> {
+        }).Add(0.2f,()=> {
 
             other.hp -= this.power;
 
-            if (other && other.hp <= 0)
+            if (other && (other.hp <= 0))
             {
-                setAnimation.SetInteger("ani", 3);
+                other.setAnimation.SetInteger("ani", 3);
+                this.setAnimation.SetInteger("ani", 0);
 
                 if (other.unitType == UnitTypeEnum.ally)
                 {
@@ -153,24 +173,11 @@ public class UnitController : MonoBehaviour {
                 }
 
                 isBusy = false;
-
-                Destroy(other.gameObject);
-
-                // death animation
-
-                
-
-                // destroy
-
+                this.tt("DamageRoutine").Release();
+                Destroy(other.gameObject,5);
             }
 
-        }).If(()=> other && other.hp > 0).Repeat();
-
-        //
-        // damage the other unit
-        //
-
-        
+        }).Repeat().Immutable();
     }
 
     public void select() {
@@ -220,7 +227,7 @@ public class UnitController : MonoBehaviour {
 
     void CheckAllyNearRoutine() {
 
-        this.tt("CheckAllyNearRoutine").If(() => !isBusy ).Add(()=> {
+        this.tt("CheckAllyNearRoutine").Add(()=> {
 
             List<Collider2D> colliders = Physics2D.OverlapCircleAll(transform.position, 5f).ToList();
 
@@ -232,17 +239,24 @@ public class UnitController : MonoBehaviour {
 
                 UnitController unit = collider.GetComponent<UnitController>();
 
-                if (unit && unit.unitType == UnitTypeEnum.ally) {
+                if (unit && unit.unitType == UnitTypeEnum.ally && unit.hp > 0) {
 
-                    debugCircles.Add(unit.gameObject);
+                    //break;
 
-                    this.action(unit.transform.position, unit.gameObject);
+                    //debugCircles.Add(unit.gameObject);
+
+                    if (!isBusy) {
+
+                        isBusy = true;
+
+                        MoveRoutine(unit.transform.position, unit.gameObject);
+                    }
 
                 }
 
             }
 
-            print("cada cuanto corre esto");
+            print("esto deberia de correr mas lentito");
 
         }).Add(1).Repeat();
 

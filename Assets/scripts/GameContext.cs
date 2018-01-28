@@ -16,7 +16,9 @@ public class GameContext : MonoSingleton<GameContext> {
 
     public AudioClip BackgroundSound;
 
-	void Start()
+    public int mineralAmount;
+
+    void Start()
 	{
 		
 		SoundManager.Get.PlayClip (BackgroundSound, true);
