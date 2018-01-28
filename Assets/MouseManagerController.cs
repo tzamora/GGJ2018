@@ -85,7 +85,7 @@ public class MouseManagerController : MonoBehaviour {
 
                 foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
 
-                 unit.action(mousePos, hitGameObject);
+                 unit.MoveRoutine(mousePos, hitGameObject);
 
                 }
 

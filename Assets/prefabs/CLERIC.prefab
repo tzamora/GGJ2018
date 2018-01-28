@@ -100,7 +100,7 @@ MonoBehaviour:
   power: 2
   unitType: 0
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
-  movementSpeed: 1
+  movementSpeed: 2
 --- !u!212 &212306273796098512
 SpriteRenderer:
   m_ObjectHideFlags: 1

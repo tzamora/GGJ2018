@@ -19,10 +19,12 @@ public class AllySpawnerController : MonoBehaviour {
         activateSpawner();
 	}
 
+    public static int counter = 0;
+
     void activateSpawner() {
 
         GameObject newAlly = GameObject.Instantiate(ClericPrefab, spawnPosition.position, Quaternion.identity);
-
+        newAlly.name = newAlly.name + counter++;
         GameContext.Get.allyUnits.Add(newAlly.GetComponent<UnitController>());
 
     }
