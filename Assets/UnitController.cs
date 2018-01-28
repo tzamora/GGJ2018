@@ -100,16 +100,10 @@ public class UnitController : MonoBehaviour {
             {
                 float distance = Vector3.Distance(this.transform.position, otherUnit.transform.position);
 
-                //print(distance);
-
                 bool isNearEnough = distance <= 1;
-
-                //print("near enough" + isNearEnough);
 
                 if (isNearEnough)
                 {
-                    print("estamos cerca ataquemos!!");
-
                     setAnimation.SetInteger("ani", 2);
 
                     damage(otherUnit);
@@ -125,8 +119,20 @@ public class UnitController : MonoBehaviour {
 
             MineralController mineral = other.GetComponent<MineralController>();
 
-            if (mineral) {
+            if (mineral)
+            {
                 mineral.extract();
+            }
+            else
+            {
+
+                AllySpawnerController allySpawner = other.GetComponent<AllySpawnerController>();
+
+                if (allySpawner) {
+
+                    allySpawner.trySpawn();
+
+                }
             }
 
         }
