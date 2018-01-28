@@ -16,6 +16,8 @@ public class GameContext : MonoSingleton<GameContext> {
 
     public AudioClip BackgroundSound;
 
+    public SpriteRenderer cursorHand;
+
     public int mineralAmount;
 
     void Start()

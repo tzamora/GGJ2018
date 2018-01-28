@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61154424209005266}
   m_Layer: 0
   m_Name: CLERICENEMY
-  m_TagString: Untagged
+  m_TagString: hover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4422109334461128}
   - component: {fileID: 212383307411134810}
+  - component: {fileID: 114520575169210030}
   m_Layer: 0
   m_Name: scifiEnvironment_13
   m_TagString: Untagged
@@ -37,9 +38,10 @@ GameObject:
   - component: {fileID: 4616943503741456}
   - component: {fileID: 114425311615766160}
   - component: {fileID: 61162158725505178}
+  - component: {fileID: 114108442318436434}
   m_Layer: 0
   m_Name: Minerals
-  m_TagString: Untagged
+  m_TagString: hover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1305397538729804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4616943503741456}
@@ -80,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1369685047126626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.71, y: 1.98, z: 0}
+  m_LocalPosition: {x: -3.6041687, y: 4.3006096, z: 6.651367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4422109334461128}
@@ -126,6 +128,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114108442318436434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1369685047126626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4835625d3f13b9f4fbacd9a36b56eb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
 --- !u!114 &114425311615766160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,7 +154,20 @@ MonoBehaviour:
   amount: 10
   filledSprite: {fileID: 212383307411134810}
   emptySprite: {fileID: 212808691507811324}
+  extractTime: 0.3
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
+--- !u!114 &114520575169210030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305397538729804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4835625d3f13b9f4fbacd9a36b56eb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: 89ebfbd45ddb4d643936131508e8d035, type: 2}
 --- !u!212 &212383307411134810
 SpriteRenderer:
   m_ObjectHideFlags: 1

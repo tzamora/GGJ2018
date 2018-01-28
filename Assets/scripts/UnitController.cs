@@ -51,8 +51,6 @@ public class UnitController : MonoBehaviour {
 
         this.tt("MoveUnitRoutine").Loop(delegate (ttHandler handler)
         {
-            print("estoy aqui pegadito");
-
             Vector2 direction = (Vector2)transform.position - previousPosition;
 
             if (direction.x > 0)
@@ -94,8 +92,6 @@ public class UnitController : MonoBehaviour {
 
         if (otherUnit)
         {
-            print("atacando: " + otherUnit);
-
             //
             // stop friendly attacks
             //
@@ -146,6 +142,10 @@ public class UnitController : MonoBehaviour {
 
     public void damage(UnitController other) {
 
+        if (other == null) {
+            return;
+        }
+
         Renderer enemyRenderer = other.GetComponent<Renderer>();
 
         Color defaultColor = enemyRenderer.material.color;
@@ -160,42 +160,41 @@ public class UnitController : MonoBehaviour {
 
         }).Add(0.2f,()=> {
 
-            other.hp -= this.power;
+            if (other != null) {
 
-            //
-            // 
-            //
+                other.hp -= this.power;
 
-            other.showDamageLabel(this.power);
+                //
+                // 
+                //
 
-            if (other && (other.hp <= 0))
-            {
-                other.setAnimation.SetInteger("ani", 3);
-                this.setAnimation.SetInteger("ani", 0);
+                other.showDamageLabel(this.power);
 
-                if (other.unitType == UnitTypeEnum.ally)
+                if (other && (other.hp <= 0))
                 {
-                    GameContext.Get.allyUnits.Remove(other);
-                }
-                else
-                {
-                    GameContext.Get.enemyUnits.Remove(other);
+                    other.setAnimation.SetInteger("ani", 3);
+                    this.setAnimation.SetInteger("ani", 0);
+
+                    if (other.unitType == UnitTypeEnum.ally)
+                    {
+                        GameContext.Get.allyUnits.Remove(other);
+                    }
+                    else
+                    {
+                        GameContext.Get.enemyUnits.Remove(other);
+                    }
+
+                    isBusy = false;
+                    this.tt("DamageRoutine").Release();
+                    Destroy(other.gameObject, 5);
                 }
 
-                isBusy = false;
-                this.tt("DamageRoutine").Release();
-                Destroy(other.gameObject,5);
             }
 
         }).Repeat().Immutable();
     }
 
     public void showDamageLabel(int amount) {
-
-        if (!transform)
-        {
-            return;
-        }
         
         Vector3 labelPosition = transform.position + new Vector3(0, 0.7f, 0);
 
@@ -283,8 +282,6 @@ public class UnitController : MonoBehaviour {
                 }
 
             }
-
-            print("esto deberia de correr mas lentito");
 
         }).Add(1).Repeat();
 
