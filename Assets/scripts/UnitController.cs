@@ -378,7 +378,7 @@ public class UnitController : MonoBehaviour {
     {
         Gizmos.color = Color.white;
         foreach (var circle in debugCircles) {
-            Gizmos.DrawWireSphere(circle.transform.position, 5f);
+            Gizmos.DrawWireSphere(circle.transform.position, range);
         }
     }
 }

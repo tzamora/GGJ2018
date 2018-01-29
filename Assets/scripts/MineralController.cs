@@ -22,8 +22,7 @@ public class MineralController : MonoBehaviour {
     public bool isDepleted = false;
 
     public void extract(UnitController unit) {
-
-
+        
         Renderer renderer = GetComponent<Renderer>();
 
         originalMaterial = filledSprite.material;
