@@ -48,3 +48,6 @@ TagManager:
   - name: front
     uniqueID: 4069709961
     locked: 0
+  - name: cursor
+    uniqueID: 1920300079
+    locked: 0

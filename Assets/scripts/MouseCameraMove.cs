@@ -26,37 +26,35 @@ public class MouseCameraMove : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.LeftShift)) {
 
-            x = Input.mousePosition.x;
-            y = Input.mousePosition.y;
-
-            mousePosition = new Vector2(x, y);
-
-            ConditionsHoverEdges();
-            ConditionsMouseButton();
-
-            if (transform.position.x > xa) maximumX = true; else maximumX = false;
-            if (transform.position.x < xb) minimumX = true; else minimumX = false;
-            if (transform.position.y > ya) maximumY = true; else maximumY = false;
-            if (transform.position.y < yb) minimumY = true; else minimumY = false;
-
         }
 
-        
+        x = Input.mousePosition.x;
+        y = Input.mousePosition.y;
+
+        mousePosition = new Vector2(x, y);
+
+        ConditionsHoverEdges();
+        ConditionsMouseButton();
+
+        if (transform.position.x > xa) maximumX = true; else maximumX = false;
+        if (transform.position.x < xb) minimumX = true; else minimumX = false;
+        if (transform.position.y > ya) maximumY = true; else maximumY = false;
+        if (transform.position.y < yb) minimumY = true; else minimumY = false;
 
     }
 
     void ConditionsHoverEdges()
     {
-        if (x > Screen.width * 0.9f && !maximumX)
+        if (x > Screen.width * 0.95f && !maximumX)
             transform.Translate(speed, 0,0);
 
-        if (x < Screen.width * 0.1f && !minimumX)
+        if (x < Screen.width * 0.05f && !minimumX)
             transform.Translate(-speed, 0, 0);
 
-        if (y > Screen.height * 0.9f && !maximumY)
+        if (y > Screen.height * 0.95f && !maximumY)
             transform.Translate(0, speed, 0);
 
-        if (y < Screen.height * 0.1f && !minimumY)
+        if (y < Screen.height * 0.05f && !minimumY)
             transform.Translate(0, -speed, 0);
     }
 
