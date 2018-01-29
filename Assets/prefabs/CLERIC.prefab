@@ -55,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 1115042267340478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 4638097357307940}
   m_RootOrder: 0
@@ -152,10 +152,11 @@ MonoBehaviour:
   damageLabelPrefab: {fileID: 1089506703870310, guid: 674de90b51e643d4f8b3398a0e8c59c0,
     type: 2}
   unitType: 0
+  range: 0
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
   movementSpeed: 2
   audioWalk: {fileID: 8300000, guid: 9601b076bd864ae45b9c195f680428eb, type: 3}
-  audioAttack: {fileID: 8300000, guid: 309d0567cf8263046a550c90e154eae1, type: 3}
+  audioAttack: {fileID: 8300000, guid: a04f282319c2b974cbb241cf6af8c54d, type: 3}
   isBusy: 0
 --- !u!212 &212306273796098512
 SpriteRenderer:

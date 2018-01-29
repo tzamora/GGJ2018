@@ -23,7 +23,7 @@ public class BeaconController : MonoBehaviour {
 
     void Start () {
 
-        requiredBeacons = Random.Range(3,9);
+        requiredBeacons = Random.Range(3,5);
         timesText.text = "This time requires to activate " + requiredBeacons + " things.";
 
         this.tt().Add(10).Add( t => Destroy(timesText) );

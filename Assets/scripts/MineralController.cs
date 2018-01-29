@@ -21,8 +21,6 @@ public class MineralController : MonoBehaviour {
 
     public bool isDepleted = false;
 
-    public AudioClip minning;
-
     public void extract(UnitController unit) {
 
 
@@ -37,15 +35,15 @@ public class MineralController : MonoBehaviour {
 
             if (amount > 0)
             {
-                SoundManager.Get.PlayClip(extractSound, false);
 
                 amount--;
-
-                SoundManager.Get.PlayClip(minning, false);
 
                 if (unit.unitType == UnitController.UnitTypeEnum.ally)
                 {
                     GameContext.Get.allyMineralAmount++;
+
+                    SoundManager.Get.PlayClip(extractSound, false);
+
                 }
                 else
                 {

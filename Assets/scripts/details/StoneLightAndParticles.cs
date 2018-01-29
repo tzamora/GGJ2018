@@ -42,7 +42,7 @@ public class StoneLightAndParticles : MonoBehaviour {
     public void Animation()
     {
 
-        Instantiate(StoneLights, transform.localPosition, Quaternion.identity);
+        Instantiate(StoneLights, transform.position, Quaternion.identity);
 
         this.tt().Loop(duration, delegate (ttHandler handler)
         {

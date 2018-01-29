@@ -181,7 +181,12 @@ public class UnitController : MonoBehaviour {
 
         Renderer enemyRenderer = other.GetComponent<Renderer>();
 
-        Color defaultColor = enemyRenderer.material.color;
+        Color defaultColor = Color.white; 
+
+        if (enemyRenderer.material.GetType().GetProperty("color") != null) {
+            defaultColor = enemyRenderer.material.color;
+
+        }
 
         this.tt("DamageRoutine").Add(0.2f, handler => {
              
@@ -195,7 +200,6 @@ public class UnitController : MonoBehaviour {
 
             if (other != null)
             {
-
                 other.hp -= this.power;
 
                 SoundManager.Get.PlayClip(audioAttack, false);

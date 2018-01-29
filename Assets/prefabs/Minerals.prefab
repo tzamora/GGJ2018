@@ -111,7 +111,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -159,6 +159,7 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 87e4e0c748bb51a4497029fe06c19733, type: 2}
   extractSound: {fileID: 8300000, guid: 0a700774d6f6d9b41b5033b08b4828c3, type: 3}
   isDepleted: 0
+  minning: {fileID: 0}
 --- !u!212 &212221902567907590
 SpriteRenderer:
   m_ObjectHideFlags: 1

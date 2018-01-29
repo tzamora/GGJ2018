@@ -92,35 +92,40 @@ public class MouseManagerController : MonoBehaviour {
 
                 GameObject hitGameObject = null;
 
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+                RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
 
-                // cross helper 
-                //Instantiate(crossHelper, mousePos, Quaternion.identity);
-
-                if (hit)
+                for (int i = hits.Length - 1; i >= 0; --i)
                 {
+                    RaycastHit2D hit = hits[i];
+
                     hitGameObject = hit.transform.gameObject;
-
-                    print(hitGameObject);
-
                 }
 
-                foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
+                for (int i = GameContext.Get.selectedPlayerUnits.Count - 1; i >= 0; --i)
+                {
+                    UnitController unit = GameContext.Get.selectedPlayerUnits[i];
 
-                 unit.MoveRoutine(mousePos, hitGameObject);
-
+                    if (unit) {
+                        unit.MoveRoutine(mousePos, hitGameObject);
+                    }
+                    
                 }
-
+                
             }
 
             if (Input.GetMouseButton(0)) {
 
-                foreach (UnitController unit in GameContext.Get.selectedPlayerUnits) {
+                for (int i = GameContext.Get.selectedPlayerUnits.Count - 1; i >= 0; --i)
+                {
+                    UnitController unit = GameContext.Get.selectedPlayerUnits[i];
 
-                    unit.resetRoutine();
-
+                    if (unit) {
+                        unit.resetRoutine();
+                    }
+                    
                 }
 
+                GameContext.Get.selectedPlayerUnits.Clear();
             }
 
         });
